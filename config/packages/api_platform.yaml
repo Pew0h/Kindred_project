@@ -6,5 +6,10 @@ api_platform:
     swagger:
         versions: [3]
     formats:
-        json: ['application/json']
+        json:     ['application/json']
+        xml:      ['application/xml', 'text/xml']
+        yaml:     ['application/x-yaml']
+        csv:      ['text/csv']
+        html:     ['text/html']
+        myformat: ['application/vnd.myformat']
     allow_plain_identifiers: true
