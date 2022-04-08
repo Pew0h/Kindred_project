@@ -50,7 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(targetEntity: self::class)]
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id')]
-    #[Assert\NotBlank(message: 'User id does not exist')]
     #[Groups(['read'])]
     private $parent;
 
