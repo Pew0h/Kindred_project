@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ContractStatusRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContractStatusRepository::class)]
 #[ApiResource(
@@ -27,10 +28,11 @@ class ContractStatus
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups(['read'])]
-    private $id = null;
+    private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(['read'])]
+    #[Assert\NotBlank(message: 'name should be not blank')]
     private $name;
 
     public function getId(): ?int
@@ -46,7 +48,6 @@ class ContractStatus
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 }
