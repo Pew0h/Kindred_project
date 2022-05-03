@@ -1,11 +1,12 @@
 import '../styles/globals.css';
 import { store } from '../src/store/store';
 import { Provider } from 'react-redux';
-
+import { ChakraProvider } from '@chakra-ui/react';
 function MyApp({ Component, pageProps }) {
-  return <Provider store={store}>
+  const getLayout = Component.getLayout || ((page) => page);
+  return <Provider store={store}><ChakraProvider>{getLayout(
     <Component {...pageProps} />
-  </Provider>
+  )}</ChakraProvider></Provider>;
 }
 
 export default MyApp
