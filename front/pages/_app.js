@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
 function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
+  
   return <Provider store={store}><ChakraProvider>{getLayout(
     <Component {...pageProps} />
   )}</ChakraProvider></Provider>;

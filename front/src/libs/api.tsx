@@ -139,7 +139,8 @@ const exampleResponse = {
         weeklyPoints: 10,
         idStatus: 1,
         dollarPerPoint: 2
-    }
+    },
+
 }
 export const createMission = (props: ICreateMissionProps) => {
     return exampleResponse.createMission;
