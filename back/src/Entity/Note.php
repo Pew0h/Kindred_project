@@ -2,27 +2,18 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ContractStatusRepository;
+use App\Repository\NoteRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ContractStatusRepository::class)]
+#[ORM\Entity(repositoryClass: NoteRepository::class)]
 #[ApiResource(
-    collectionOperations: [
-        'post' => ['path' => '/contract_status'],
-        'get' => ['path' => '/contract_status']
-    ],
-    itemOperations: [
-        'get' => ['path' => '/contract_status/{id}'],
-        'patch' => ['path' => '/contract_status/{id}'],
-        'delete' => ['path' => '/contract_status/{id}']
-    ],
+    itemOperations: ['get', 'patch', 'delete'],
     normalizationContext: ['groups' => ['read']]
 )]
-class ContractStatus
+class Note
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,8 +23,13 @@ class ContractStatus
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(['read'])]
-    #[Assert\NotBlank(message: 'name should be not blank')]
+    #[Assert\NotBlank(message: 'name should not to be blank')]
     private $name;
+
+    #[ORM\Column(type: 'float')]
+    #[Groups(['read'])]
+    #[Assert\NotBlank(message: 'coefficient should not to be null')]
+    private $coefficient;
 
     public function getId(): ?int
     {
@@ -48,6 +44,19 @@ class ContractStatus
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCoefficient(): ?float
+    {
+        return $this->coefficient;
+    }
+
+    public function setCoefficient(float $coefficient): self
+    {
+        $this->coefficient = $coefficient;
+
         return $this;
     }
 }

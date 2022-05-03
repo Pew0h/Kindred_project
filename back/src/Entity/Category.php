@@ -2,32 +2,23 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ContractStatusRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ContractStatusRepository::class)]
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
-    collectionOperations: [
-        'post' => ['path' => '/contract_status'],
-        'get' => ['path' => '/contract_status']
-    ],
-    itemOperations: [
-        'get' => ['path' => '/contract_status/{id}'],
-        'patch' => ['path' => '/contract_status/{id}'],
-        'delete' => ['path' => '/contract_status/{id}']
-    ],
+    itemOperations: ['get', 'patch', 'delete'],
     normalizationContext: ['groups' => ['read']]
 )]
-class ContractStatus
+class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
     #[Groups(['read'])]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -48,6 +39,7 @@ class ContractStatus
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 }
