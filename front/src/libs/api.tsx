@@ -145,9 +145,8 @@ const exampleResponse = {
 export const createMission = (props: ICreateMissionProps) => {
     return exampleResponse.createMission;
 }
-export const getAllMissionsByUserId = (props: IGetAllMissionsByUserIdProps) => {
+export const getAllMissionsByUserId = async (props: IGetAllMissionsByUserIdProps) => {
     return exampleResponse.getAllMissionsByUserId;
-
 }
 export const editMission = (props: IEditMissionProps) => {
     return exampleResponse.editMission;
