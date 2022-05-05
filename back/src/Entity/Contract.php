@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ContractRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,12 +31,14 @@ class Contract
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[Assert\NotNull(message: 'A parent id should be not null')]
     #[Groups(['read'])]
+    #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"]])]
     private $parent;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'child_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[Assert\NotNull(message: 'A parent id should be not null')]
     #[Groups(['read'])]
+    #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"]])]
     private $child;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
@@ -59,6 +62,7 @@ class Contract
     #[ORM\JoinColumn(name: 'status_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[Assert\NotBlank(message: 'status id should be not null')]
     #[Groups(['read'])]
+    #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"]])]
     private $status;
 
     public function getId(): ?int
