@@ -10,19 +10,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
-    itemOperations: ['get', 'patch', 'delete'],
-    normalizationContext: ['groups' => ['read']]
+    itemOperations: ['get', 'patch', 'delete']
 )]
 class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[Groups(['read'])]
     #[ORM\Column(type: 'integer')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read'])]
     #[Assert\NotBlank(message: 'name should be not blank')]
     private $name;
 
