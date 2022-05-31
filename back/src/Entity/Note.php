@@ -11,20 +11,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: NoteRepository::class)]
 #[ApiResource(
     itemOperations: ['get', 'patch', 'delete'],
+    normalizationContext: ['groups' => ['read']]
 )]
 class Note
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['read'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message: 'name should not to be blank')]
+    #[Groups(['read'])]
     private $name;
 
     #[ORM\Column(type: 'float')]
     #[Assert\NotBlank(message: 'coefficient should not to be null')]
+    #[Groups(['read'])]
     private $coefficient;
 
     public function getId(): ?int

@@ -44,33 +44,33 @@ class Mission
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[Groups(['write'])]
+    #[Groups(['read', 'write'])]
     private $category;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[ORM\JoinColumn(name: 'child_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[Groups(['write'])]
+    #[Groups(['read', 'write'])]
     private $child;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[Groups(['write'])]
+    #[Groups(['read', 'write'])]
     private $parent;
 
     #[ORM\ManyToOne(targetEntity: Note::class)]
     #[ORM\JoinColumn(name: 'child_note_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[Groups(['write'])]
+    #[Groups(['read', 'write'])]
     private $childNote;
 
     #[ORM\ManyToOne(targetEntity: Note::class)]
     #[ORM\JoinColumn(name: 'parent_note_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[Groups(['write'])]
+    #[Groups(['read', 'write'])]
     private $parentNote;
 
     public function getId(): ?int
@@ -131,14 +131,6 @@ class Mission
         return $this->category;
     }
 
-    #[Groups(['read'])]
-    #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[SerializedName("category")]
-    public function getCategoryId(): ?int
-    {
-        return $this->getCategory() instanceof Category ? $this->getCategory()->getId() : null;
-    }
-
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
@@ -149,14 +141,6 @@ class Mission
     public function getChild(): ?User
     {
         return $this->child;
-    }
-
-    #[Groups(['read'])]
-    #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[SerializedName("child")]
-    public function getChildId(): ?int
-    {
-        return $this->getChild() instanceof User ? $this->getChild()->getId() : null;
     }
 
     public function setChild(?User $child): self
@@ -171,14 +155,6 @@ class Mission
         return $this->parent;
     }
 
-    #[Groups(['read'])]
-    #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[SerializedName("parent")]
-    public function getParentId(): ?int
-    {
-        return $this->getParent() instanceof User ? $this->getParent()->getId() : null;
-    }
-
     public function setParent(?User $parent): self
     {
         $this->parent = $parent;
@@ -191,14 +167,6 @@ class Mission
         return $this->childNote;
     }
 
-    #[Groups(['read'])]
-    #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[SerializedName("childNote")]
-    public function getChildNoteId(): ?int
-    {
-        return $this->getChildNote() instanceof Note ? $this->getChildNote()->getId() : null;
-    }
-
     public function setChildNote(?Note $child_note): self
     {
         $this->childNote = $child_note;
@@ -209,14 +177,6 @@ class Mission
     public function getParentNote(): ?Note
     {
         return $this->parentNote;
-    }
-
-    #[Groups(['read'])]
-    #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
-    #[SerializedName("parentNote")]
-    public function getParentNoteId(): ?int
-    {
-        return $this->getParentNote() instanceof Note ? $this->getParentNote()->getId() : null;
     }
 
     public function setParentNote(?Note $parent_note): self
