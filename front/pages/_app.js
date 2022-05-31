@@ -1,13 +1,12 @@
-import '../styles/main.scss';
-import { store } from '../src/store/store';
-import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
+import { SWRConfig } from 'swr';
+import '../styles/main.scss';
 function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
-  
-  return <Provider store={store}><ChakraProvider>{getLayout(
+
+  return <SWRConfig value={{ provider: () => new Map() }}><ChakraProvider>{getLayout(
     <Component {...pageProps} />
-  )}</ChakraProvider></Provider>;
+  )}</ChakraProvider></SWRConfig>;
 }
 
 export default MyApp

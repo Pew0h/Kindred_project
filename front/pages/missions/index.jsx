@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./index.module.scss";
 import { getAllMissionsByUserId } from '../../src/libs/api';
 import useSWR from 'swr'
+import { useSWRConfig } from 'swr'
 import { fetcher } from "../../src/libs/utils";
 import mainStyles from '../../styles/main.module.scss';
 import DashboardLayout from "../../src/layouts/DashboardLayout/DashboardLayout";
@@ -21,7 +22,9 @@ import {
 
 
 const MissionsPage = ({ Component, pageProps }) => {
+    const { cache, mutate, ...extraConfig } = useSWRConfig();
     const { data, error } = useSWR('https://run.mocky.io/v3/79dd13e8-d224-402d-b43e-94dbbb3d1a11', fetcher);
+    console.log(cache)
     if (error) return <p>Chargement echoué...</p>;
     if (!data) return <h1>Chargement ..</h1>;
     console.log(data)
