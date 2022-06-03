@@ -1,85 +1,54 @@
 type id = number;
 type name = string;
 type date = string;
+type email = string;
+type role = string;
 type points = number;
 type idCategory = number;
 type content = string;
 type weeklyPoints = number;
 type dollarPerPoint = number;
-interface ICreateMissionProps {
-    idParent: number,
-    idChild: number,
-    name: string,
-    startDate: string,
-    endDate?: string,
-    points: number,
-    idCategory: number,
-    idChildNote?: number,
-    idParentNote?: number
-}
-interface IGetAllMissionsByUserIdProps {
-    idUser: id
-}
-interface IEditMissionProps {
-    idMission: id,
-    data: {
-        name?: name,
-        startDate?: date,
-        endDate?: date,
-        points?: points,
-        idCategory?: idCategory
-    }
-}
-interface IDeleteMissionProps {
-    idMission: id
-}
-interface ICreateContractProps {
-    idChild: id,
-    content: content,
-    idStatus: id,
-    weeklyPoints: weeklyPoints,
-    dollarPerPoint: dollarPerPoint
-}
-interface IGetContractByIdProps {
-    idContract: id
-}
-interface ICloneContractProps {
-    idContract: id
+interface User {
+    id: id,
+    email: email,
+    roles: role[],
+    firstname: name,
+    lastname: name,
+    parent?: id
 }
 const exampleResponse = {
- getUser: {
-    "id": 0,
-    "email": "user@example.com",
-    "roles": [
-      "string"
-    ],
-    "firstname": "Théo ",
-    "lastname": "Léao",
-    "parent": "string"
-  }
+    getUser: {
+        "id": 0,
+        "email": "user@example.com",
+        "roles": [
+            "string"
+        ],
+        "firstname": "Théo ",
+        "lastname": "Léao",
+        "parent": "string"
+    }
 
 }
-// export const createMission = (props: ICreateMissionProps) => {
-//     return exampleResponse.createMission;
-// }
-export const getAllMissionsByUserId = (props: IGetAllMissionsByUserIdProps) => {
-    return exampleResponse.getAllMissionsByUserId;
+
+export async function getUser(id: User["id"]): Promise<any> {
+    let requestOptions: RequestInit = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    const res = await fetch(`http://localhost:8000/api/users/${id}`, requestOptions);
+    return res.text();
 }
-// export const editMission = (props: IEditMissionProps) => {
-//     return exampleResponse.editMission;
-// }
-// export const deleteMission = (props: IDeleteMissionProps) => {
-//     return exampleResponse.deleteMission;
-// }
-// export const createContract = (props: ICreateContractProps) => {
-//     return exampleResponse.createContract;
-// }
-// export const getContractById = (props: IGetContractByIdProps) => {
-//     return exampleResponse.getContractById;
-// }
-// export const cloneContract = (props: ICloneContractProps) => {
-//     return exampleResponse.cloneContract;
-// }
-export const getUser = (props: any) => {
-    return exampleResponse.getUser
+export async function getUsers(): Promise<any> {
+    let requestOptions: RequestInit = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    const res = await fetch("http://localhost:8000/api/users", requestOptions); 
+    return res.text(); 
+}
+
+export async function getUserChilds(userId: number): Promise<any> {
+    const users  = await getUsers();
+    console.log(users)
+    return JSON.parse(users).filter(user => user.parent?.id === userId);
 }

@@ -4,11 +4,11 @@ import {
 } from '@chakra-ui/react';
 import React from "react";
 import DashboardLayout from "../src/layouts/DashboardLayout/DashboardLayout";
-import { getAllMissionsByUserId, getUser } from '../src/libs/api';
+import { getUser, getUserChilds } from '../src/libs/api';
 import mainStyles from '../styles/main.module.scss';
 import styles from "./index.module.scss";
 
-const MissionsPage = ({ allMissionsByUserId }) => {
+const MissionsPage = ({ user, test, childs }) => {
     return (
         <>
             <h1 className={styles.h1_title}>Accueil</h1>
@@ -19,21 +19,15 @@ const MissionsPage = ({ allMissionsByUserId }) => {
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
+                                    <Th>Prénom</Th>
                                     <Th>Nom</Th>
-                                    <Th>Points à gagner</Th>
-                                    <Th>Catégorie</Th>
-                                    <Th>Date de fin</Th>
-                                    <Th>Créé par</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {allMissionsByUserId.map(mission => {
+                                {childs.map(child => {
                                     return <Tr>
-                                        <Td>{mission.name} </Td>
-                                        <Td>{mission.points}</Td>
-                                        <Td>{mission.category.name}</Td>
-                                        <Td>{mission.endDate}</Td>
-                                        <Td>{mission.parent.firstname} {mission.parent.lastname}</Td>
+                                              <Td>{child.firstname}</Td>
+                                        <Td>{child.lastname} </Td>       
                                     </Tr>
                                 })}
                             </Tbody>
@@ -54,7 +48,7 @@ const MissionsPage = ({ allMissionsByUserId }) => {
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {allMissionsByUserId.map(mission => {
+                                {/* {allMissionsByUserId.map(mission => {
                                     return <Tr>
                                         <Td>{mission.name} </Td>
                                         <Td>{mission.points}</Td>
@@ -62,7 +56,7 @@ const MissionsPage = ({ allMissionsByUserId }) => {
                                         <Td>{mission.endDate}</Td>
                                         <Td>{mission.parent.firstname} {mission.parent.lastname}</Td>
                                     </Tr>
-                                })}
+                                })} */}
                             </Tbody>
                         </Table>
                     </TableContainer>
@@ -73,11 +67,16 @@ const MissionsPage = ({ allMissionsByUserId }) => {
     );
 };
 export async function getServerSideProps(context) {
-    const user = getUser();
-    const allMissionsByUserId = getAllMissionsByUserId();
+    const userId = 3;
+    const user = await getUser(userId);
+    const userData = JSON.stringify(user);
+    const childs = await getUserChilds(userId);
+    
     return {
         props: {
-            allMissionsByUserId: allMissionsByUserId
+            user: userData,
+            childs: childs
+
         },
     }
 }
