@@ -17,13 +17,13 @@ class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[Groups(['read'])]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['read'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read'])]
     #[Assert\NotBlank(message: 'name should be not blank')]
+    #[Groups(['read'])]
     private $name;
 
     public function getId(): ?int

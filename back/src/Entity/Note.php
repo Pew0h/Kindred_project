@@ -22,13 +22,13 @@ class Note
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read'])]
     #[Assert\NotBlank(message: 'name should not to be blank')]
+    #[Groups(['read'])]
     private $name;
 
     #[ORM\Column(type: 'float')]
-    #[Groups(['read'])]
     #[Assert\NotBlank(message: 'coefficient should not to be null')]
+    #[Groups(['read'])]
     private $coefficient;
 
     public function getId(): ?int
