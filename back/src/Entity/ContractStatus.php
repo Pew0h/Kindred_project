@@ -12,13 +12,25 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ContractStatusRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'post' => ['path' => '/contract_status'],
+        'post' => [
+            'path' => '/contract_status',
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can create a contract status"
+        ],
         'get' => ['path' => '/contract_status']
     ],
     itemOperations: [
         'get' => ['path' => '/contract_status/{id}'],
-        'patch' => ['path' => '/contract_status/{id}'],
-        'delete' => ['path' => '/contract_status/{id}']
+        'patch' => [
+            'path' => '/contract_status/{id}',
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can modify a contract status"
+        ],
+        'delete' => [
+            'path' => '/contract_status/{id}',
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can delete a contract status"
+        ]
     ],
     normalizationContext: ['groups' => ['read']]
 )]

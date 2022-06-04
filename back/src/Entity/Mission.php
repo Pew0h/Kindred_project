@@ -11,7 +11,30 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: MissionRepository::class)]
 #[ApiResource(
-    itemOperations: ['get', 'patch', 'delete'],
+    collectionOperations: [
+        'get' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can view all missions"
+        ],
+        'post' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can create a mission"
+        ]
+    ],
+    itemOperations: [
+        'get' => [
+            "security" => "is_granted('ROLE_PARENT') or object.child == user",
+            "security_message" => "Only parent can view this mission or the child assigned to the mission"
+        ],
+        'patch' => [
+            "security" => "is_granted('ROLE_PARENT') or object.child == user",
+            "security_message" => "Only parent can modify this mission or the child assigned to the mission"
+        ],
+        'delete' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can delete this mission"
+        ]
+    ],
     denormalizationContext: ['groups' => ['write']],
     normalizationContext: ['groups' => ['read']]
 )]
@@ -52,7 +75,7 @@ class Mission
     #[ORM\JoinColumn(name: 'child_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
     #[Groups(['read', 'write'])]
-    private $child;
+    public $child;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]

@@ -10,7 +10,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
-    itemOperations: ['get', 'patch', 'delete'],
+    collectionOperations: [
+        'get',
+        'post' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can create a category"
+        ]
+    ],
+    itemOperations: [
+        'get',
+        'patch' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can modify a category"
+        ],
+        'delete' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can delete a category"
+        ],
+    ],
     normalizationContext: ['groups' => ['read']]
 )]
 class Category

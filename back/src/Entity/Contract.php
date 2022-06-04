@@ -11,7 +11,30 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContractRepository::class)]
 #[ApiResource(
-    itemOperations: ['get', 'patch', 'delete'],
+    collectionOperations: [
+        'get' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can view all contracts"
+        ],
+        'post' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can create a contract"
+        ]
+    ],
+    itemOperations: [
+        'get' => [
+            "security" => "is_granted('ROLE_PARENT') or object.child == user",
+            "security_message" => "Only parent can view this contract or the child assigned to the contract"
+        ],
+        'patch' => [
+            "security" => "is_granted('ROLE_PARENT') or object.child == user",
+            "security_message" => "Only parent can modify a contract or the child assigned to the contract"
+        ],
+        'delete' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can delete a contract"
+        ]
+    ],
     normalizationContext: ['groups' => ['read']]
 )]
 class Contract
@@ -39,7 +62,7 @@ class Contract
     #[Assert\NotNull(message: 'A parent id should be not null')]
     #[Groups(['read'])]
     #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"]])]
-    private $child;
+    public $child;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     #[Assert\NotNull(message: 'childSignature should be not null')]
@@ -52,6 +75,7 @@ class Contract
     private $parentSignature;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(['read'])]
     private $weeklyPoint;
 
     #[ORM\Column(type: 'integer')]
