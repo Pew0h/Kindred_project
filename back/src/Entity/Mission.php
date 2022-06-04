@@ -75,7 +75,7 @@ class Mission
     #[ORM\JoinColumn(name: 'child_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[ApiProperty(attributes: ["openapi_context" => ["type" => "integer"], "json_schema_context" => ["type" => "integer"]])]
     #[Groups(['read', 'write'])]
-    private $child;
+    public $child;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
