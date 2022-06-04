@@ -36,7 +36,7 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
     public function persist($data, array $context = [])
     {
         if(!$data->getParent()){
-            $data->setRoles(["ROLE_USER", "ROLE_ADMIN"]);
+            $data->setRoles(["ROLE_PARENT"]);
         }
         if ($data->getPlainPassword()) {
             $data->setPassword(
