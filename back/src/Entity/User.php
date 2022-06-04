@@ -55,7 +55,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $parent;
 
     #[SerializedName("password")]
-    #[Assert\NotBlank(message: 'Should not to be empty')]
     private $plainPassword;
 
     public function getId(): ?int
