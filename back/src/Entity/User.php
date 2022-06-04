@@ -14,7 +14,27 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
-    itemOperations: ['get', 'patch', 'delete'],
+    collectionOperations: [
+        'get' => [
+            "security" => "is_granted('ROLE_PARENT')",
+            "security_message" => "Only parent can view all users"
+        ],
+        'post'
+    ],
+    itemOperations: [
+        'get' => [
+            "security" => "is_granted('ROLE_PARENT') or object.id == user.id",
+            "security_message" => "Only parent can view this user or the current user"
+        ],
+        'patch' => [
+            "security" => "is_granted('ROLE_PARENT') or object == user",
+            "security_message" => "Only parent can modify this user or the current user"
+        ],
+        'delete' => [
+            "security" => "is_granted('ROLE_PARENT') or object.id == user.id",
+            "security_message" => "Only parent can delete this user or current user"
+        ]
+    ],
     normalizationContext: ['groups' => ['read']]
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -23,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups(['read'])]
-    private $id;
+    public $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Groups(['read'])]
