@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\CurrentUserController;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -19,7 +20,13 @@ use Symfony\Component\Validator\Constraints as Assert;
             "security" => "is_granted('ROLE_PARENT')",
             "security_message" => "Only parent can view all users"
         ],
-        'post'
+        'post',
+        'current_user' => [
+            'path' => '/current_user',
+            'method' => 'get',
+            'controller' => CurrentUserController::class,
+            'pagination_enabled' => false,
+        ]
     ],
     itemOperations: [
         'get' => [
