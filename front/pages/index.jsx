@@ -1,8 +1,8 @@
 import { Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Lottie from "react-lottie";
-import DashboardLayout from "../../src/layouts/DashboardLayout/DashboardLayout";
-import loader from "../../src/lotties/loader.json";
+import DashboardLayout from "../src/layouts/DashboardLayout/DashboardLayout";
+import loader from "../src/lotties/loader.json";
 import styles from "./index.module.scss";
 
 const Index = ({ Component, pageProps }) => {

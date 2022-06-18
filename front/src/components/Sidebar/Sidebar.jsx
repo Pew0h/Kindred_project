@@ -15,10 +15,12 @@ import React, { useEffect, useState } from "react";
 import {
     FiBook, FiChevronDown, FiHome, FiMenu, FiUser
 } from "react-icons/fi";
+import { TbChecklist } from "react-icons/tb"
 import theme from "../../theme/theme";
 
 const LinkItems = [
     { name: "Accueil", icon: FiHome, href: "/dashboard/" },
+    { name: "Contrats", icon: TbChecklist, href: "/contract/" },
 ];
 
 export default function SidebarWithHeader({ children }) {
@@ -49,7 +51,7 @@ export default function SidebarWithHeader({ children }) {
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
-    const role = null;
+    let role = null;
     if (typeof window !== "undefined") {
         role = sessionStorage.getItem("role");
     }
