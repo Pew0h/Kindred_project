@@ -1,0 +1,16 @@
+# api/fixtures/user.yaml
+App\Entity\User:
+  parent_{1..5}:
+    firstname: '<lastname()>'
+    lastname: '<lastname()>'
+    email: 'parent<current()>\@example.com'
+    password: '\$2y\$13\$HeIbjPurfHdsC8GHY5VZO.3u2tHjSwlAv4A9FcczU9vJZPBRC/IwK' #password = 'password'
+    roles: ['ROLE_PARENT']
+
+  child_{1..5}:
+    firstname: '<lastname()>'
+    lastname: '<lastname()>'
+    email: 'child<current()>\@example.com'
+    roles: ['ROLE_CHILD']
+    password: '\$2y\$13\$HeIbjPurfHdsC8GHY5VZO.3u2tHjSwlAv4A9FcczU9vJZPBRC/IwK' #password = 'password'
+    parent: '@parent_<current()>'

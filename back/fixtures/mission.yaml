@@ -1,0 +1,12 @@
+# api/fixtures/category.yaml
+App\Entity\Mission:
+  mission_{1..4}:
+    name (unique): <randomElement(['Faire la vaisselle',  'Faire le ménage', 'Faire les courses', 'Ranger sa chambre', 'Faire ses devoirs', 'Jouer au PC', 'Apprendre JUnit', 'Apprendre une langue'])>
+    points: <numberBetween(10, 500)>
+    startDate: <dateTimeBetween("-20 days", "now")>
+    endDate: <dateTimeBetween("now", "+20 days")>
+    category: "@category_<current()>"
+    child: "@child_<current()>"
+    parent: "@parent_<current()>"
+    childNote: "@note_<current()>"
+    parentNote: "@note_<current()>"
