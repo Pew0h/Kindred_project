@@ -1,0 +1,11 @@
+# api/fixtures/category.yaml
+App\Entity\Contract:
+  contract_{1..3}:
+    content: <text(500)>
+    childSignature: <randomElement([1, 0])>
+    parentSignature: <randomElement([1, 0])>
+    weeklyPoint: <numberBetween(10, 200)>
+    dollarPerPoint: '1'
+    parent: '@parent_<current()>'
+    child: '@child_<current()>'
+    status: '@contract_status_<current()>'

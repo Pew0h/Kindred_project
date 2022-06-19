@@ -1,0 +1,4 @@
+# api/fixtures/category.yaml
+App\Entity\ContractStatus:
+  contract_status_{1..3}:
+    name (unique): <randomElement(['En cours',  'Valider', 'Refuser'])>
