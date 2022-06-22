@@ -21,7 +21,7 @@ import {userContext} from "../../../pages/_app";
 
 const LinkItems = [
     { name: "Accueil", icon: FiHome, href: "/dashboard/" },
-    { name: "Contrats", icon: TbChecklist, href: "/contracts/" },
+    { name: "Enfants", icon: TbChecklist, href: "/enfants/" },
 ];
 
 export default function SidebarWithHeader({ children }) {

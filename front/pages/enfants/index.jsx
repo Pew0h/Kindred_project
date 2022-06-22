@@ -26,19 +26,6 @@ const Index = ({Component, pageProps}) => {
 
     }, [contractsList])
 
-    function updateContract() {
-        return true;
-    }
-
-    function signContract() {
-        return true;
-    }
-
-    function cloneContract() {
-        console.log('cloneContract ok')
-    }
-
-
     return (
         <div className={styles.contractContainer}>
             <TableContainer>

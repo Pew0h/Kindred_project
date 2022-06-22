@@ -77,24 +77,6 @@ function MyApp({Component, pageProps}) {
             token,
         })
     }
-
-    function updateMail(mail) {
-        setUser({
-            ...user,
-            mail,
-        })
-    }
-
-    function updatePassword(password) {
-        setUser({
-            ...user,
-            password,
-        })
-    }
-
-    function logout() {
-        // Déconnecter => Vider le contexte
-    }
 }
 
 export default MyApp
