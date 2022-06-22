@@ -6,7 +6,7 @@ const DashboardLayout = ({ children }) => {
     <Head>
 
     </Head>
-    <div className={styles.container}>
+    <div>
       <Sidebar>
         <div className={styles.content}> {children}</div>
       </Sidebar>

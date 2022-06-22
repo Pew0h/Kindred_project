@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.2",
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@reduxjs/toolkit": "^1.8.1",
+    "axios": "^0.27.2",
     "framer-motion": "^6",
     "next": "^12.1.6",
     "react": "18.0.0",
@@ -27,6 +29,7 @@
     "@types/react": "^18.0.0",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.4",
+    "scss": "^0.2.4",
     "typescript": "^4.6.3"
   }
 }

@@ -1,15 +1,21 @@
 import { Heading } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import Lottie from "react-lottie";
 import DashboardLayout from "../src/layouts/DashboardLayout/DashboardLayout";
 import loader from "../src/lotties/loader.json";
 import styles from "./index.module.scss";
+import {userContext} from "./_app";
+import axios from "axios";
+import {getFromServer} from "../src/utils/server";
 
 const Index = ({ Component, pageProps }) => {
     const [isDataLoading, setIsDataLoading] = useState(false);
 
+    const {user: {token}} = useContext(userContext);
+
     return (
         <>
+            <button onClick={fetchUsers}>Fetch user</button>
             <div className={styles.container}>
                 {isDataLoading ? <div className={styles.loader}><Lottie
                     options={{
@@ -29,13 +35,22 @@ const Index = ({ Component, pageProps }) => {
                         Dashboard
                     </Heading>
                     <div className={styles.container}>
-
+                        {token}
 
                     </div>
                 </div>}
             </div>
         </>
     );
+
+    function fetchUsers() {
+        getFromServer('users');
+        // axios.get('http://localhost:8010/api/users',  {
+        //     headers: {
+        //         Authorization: "Bearer " + token
+        //     }
+        // })
+    }
 };
 
 Index.getLayout = function getLayout(Index) {

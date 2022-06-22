@@ -11,16 +11,17 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
     FiBook, FiChevronDown, FiHome, FiMenu, FiUser
 } from "react-icons/fi";
 import { TbChecklist } from "react-icons/tb"
 import theme from "../../theme/theme";
+import {userContext} from "../../../pages/_app";
 
 const LinkItems = [
     { name: "Accueil", icon: FiHome, href: "/dashboard/" },
-    { name: "Contrats", icon: TbChecklist, href: "/contract/" },
+    { name: "Contrats", icon: TbChecklist, href: "/contracts/" },
 ];
 
 export default function SidebarWithHeader({ children }) {
@@ -43,7 +44,7 @@ export default function SidebarWithHeader({ children }) {
             </Drawer>
             {/* mobilenav */}
             <MobileNav onOpen={onOpen} />
-            <Box ml={{ base: 0, md: 60 }} p="4">
+            <Box ml={{ base: 0, md: 60 }} p="4" backgroundColor="#FFFAF0">
                 {children}
             </Box>
         </Box>
@@ -117,6 +118,7 @@ const NavItem = ({ icon, children, href, ...rest }) => {
 
 const MobileNav = ({ onOpen, ...rest }) => {
 
+    const {user: {firstname, lastname, role}} = useContext(userContext);
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -153,9 +155,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                                     spacing="1px"
                                     ml="2"
                                 >
-                                    <Text fontSize="sm">Nom user</Text>
+                                    <Text fontSize="sm">{`${firstname} ${lastname}`}</Text>
                                     <Text fontSize="xs" color="gray.600">
-                                        Role User
+                                        {role === 'ROLE_PARENT' ? 'Parent' : 'Enfant'}
                                     </Text>
                                 </VStack>
                                 <Box display={{ base: "none", md: "flex" }}>

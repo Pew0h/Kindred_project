@@ -1,5 +1,38 @@
-.table_custom{
+.contractContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+
+  .contractText {
+    width: 80%;
     background-color: white;
-    padding: 30px;
-    border-radius: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .contractPointText {
+    width: 80%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .signContainer {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    justify-content: space-between;
+
+    .sign {
+      width: 49%;
+      background-color: white;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+  }
 }
