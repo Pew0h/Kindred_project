@@ -9,6 +9,8 @@
 /vendor/
 /.idea
 ###< symfony/framework-bundle ###
+/front/.next/
+/front/node_modules/
 
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
