@@ -211,6 +211,48 @@ const Dashboard = ({ Component, pageProps }) => {
             },
             "childNote": null,
             "parentNote": null
+        },
+        {
+            "id": 43,
+            "name": "Nettoyer la cuisine",
+            "points": 20,
+            "startDate": "2022-06-06T00:00:00+00:00",
+            "endDate": "2022-06-12T00:00:00+00:00",
+            "category": {
+                "id": 1,
+                "name": "Courses"
+            },
+            "child": {
+                "id": 211,
+                "email": "child1@example.com",
+                "roles": [
+                    "ROLE_CHILD"
+                ],
+                "firstname": "Vandervort",
+                "lastname": "Moen",
+                "parent": {
+                    "id": 161,
+                    "email": "parent1@example.com",
+                    "roles": [
+                        "ROLE_PARENT"
+                    ],
+                    "firstname": "McClure",
+                    "lastname": "Adams",
+                    "parent": null
+                }
+            },
+            "parent": {
+                "id": 161,
+                "email": "parent1@example.com",
+                "roles": [
+                    "ROLE_PARENT"
+                ],
+                "firstname": "McClure",
+                "lastname": "Adams",
+                "parent": null
+            },
+            "childNote": null,
+            "parentNote": null
         }
     ];
     var mondayOfLastWeek = moment().startOf('isoWeek').subtract(7, 'days');
@@ -218,7 +260,7 @@ const Dashboard = ({ Component, pageProps }) => {
 
     const childsMissionsInProgress = childMissions.filter((mission) => moment(mission.endDate).isAfter(now) && moment(mission.startDate).isSameOrBefore(now));
     const childsMissionsLastWeek = childMissions.filter((mission) => moment(mission.startDate).isSameOrAfter(mondayOfLastWeek) && moment(mission.endDate).isSameOrBefore(sundayOfLastWeek));
-
+    const childsOldMissions = childMissions.filter((mission) => moment(mission.endDate).isBefore(mondayOfLastWeek));
     //console.log(`début semaine dernière: ${mondayOfLastWeek.format('DD-MM-YYYY')}, fin semaine dernière: ${sundayOfLastWeek.format('DD-MM-YYYY')}`);
     console.log(childsMissionsLastWeek);
     const myMomentObject = moment(childMissions[0].endDate, 'YYYY-MM-DD');
@@ -279,7 +321,20 @@ const Dashboard = ({ Component, pageProps }) => {
             </div>
         ))
 
-    }   
+    }
+    const ChildsOldMissions = () => {
+        return childsOldMissions.map((mission) => (
+            <div className={styles.missionContent} key={mission.name}>
+                <div className={styles.missionNameBadge}>
+                    <label>{mission.name}</label>
+                    <Badge colorScheme='teal'>{mission.category.name}</Badge>
+                </div>
+                <div className={styles.missionPoint}>
+                    {mission.points} pts
+                </div>
+            </div>
+        ))
+    }
     const ChildrensList = () => {
 
     }
@@ -320,11 +375,15 @@ const Dashboard = ({ Component, pageProps }) => {
                     {isChild && <Heading as='h5' size='sm'>MISSIONS DE LA SEMAINE DERNIÈRE</Heading>}
                     {isChild && <ChildsMissionsInLastWeeks></ChildsMissionsInLastWeeks>}
                 </div>
+                <div className={styles.missionContainer}>
+                    {isChild && <Heading as='h5' size='sm'>MISSIONS ANCIENNES</Heading>}
+                    {isChild && <ChildsOldMissions></ChildsOldMissions>}
+                </div>
 
                 {!isChild && <div className={styles.addMissionContainer} onClick={handleAddChild}>
                     Créer une mission
                 </div>}
-                
+
 
             </div>
         </>
