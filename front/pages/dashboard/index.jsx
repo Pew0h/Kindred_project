@@ -91,7 +91,7 @@ const Dashboard = ({ Component, pageProps }) => {
             "name": "Nettoyer la cheminée",
             "points": 20,
             "startDate": "2022-06-22T00:00:00+00:00",
-            "endDate": "2022-06-22T00:00:00+00:00",
+            "endDate": "2022-06-26T00:00:00+00:00",
             "category": {
                 "id": 1,
                 "name": "Courses"
@@ -172,7 +172,7 @@ const Dashboard = ({ Component, pageProps }) => {
         },
         {
             "id": 42,
-            "name": "Nettoyer le couloir",
+            "name": "Nettoyer le couloir du sous-sol",
             "points": 20,
             "startDate": "2022-06-13T00:00:00+00:00",
             "endDate": "2022-06-17T00:00:00+00:00",
@@ -255,15 +255,12 @@ const Dashboard = ({ Component, pageProps }) => {
             "parentNote": null
         }
     ];
-    var mondayOfLastWeek = moment().startOf('isoWeek').subtract(7, 'days');
-    var sundayOfLastWeek = moment(mondayOfLastWeek).add(6, 'days');
-
-    const childsMissionsInProgress = childMissions.filter((mission) => moment(mission.endDate).isAfter(now) && moment(mission.startDate).isSameOrBefore(now));
+    const mondayOfLastWeek = moment().startOf('isoWeek').subtract(7, 'days');
+    const sundayOfLastWeek = moment(mondayOfLastWeek).add(6, 'days');
+    const nextSunday = moment().endOf('isoWeek');
+    const childsMissionsInProgress = childMissions.filter((mission) => moment(mission.startDate).isAfter(sundayOfLastWeek) && moment(mission.endDate).isSameOrBefore(nextSunday));
     const childsMissionsLastWeek = childMissions.filter((mission) => moment(mission.startDate).isSameOrAfter(mondayOfLastWeek) && moment(mission.endDate).isSameOrBefore(sundayOfLastWeek));
     const childsOldMissions = childMissions.filter((mission) => moment(mission.endDate).isBefore(mondayOfLastWeek));
-    //console.log(`début semaine dernière: ${mondayOfLastWeek.format('DD-MM-YYYY')}, fin semaine dernière: ${sundayOfLastWeek.format('DD-MM-YYYY')}`);
-    console.log(childsMissionsLastWeek);
-    const myMomentObject = moment(childMissions[0].endDate, 'YYYY-MM-DD');
     useEffect(() => {
         if (UserContext.user.role == 'ROLE_CHILD') {
             getFromServer('missions').then((missionsList) => {
@@ -300,7 +297,9 @@ const Dashboard = ({ Component, pageProps }) => {
             <div className={styles.missionContent} key={mission.name}>
                 <div className={styles.missionNameBadge}>
                     <label>{mission.name}</label>
-                    <Badge colorScheme='teal'>{mission.category.name}</Badge>
+                    <div style={{ display: 'flex' }}>
+                        <Badge colorScheme='teal' style={{ marginRight: '5px' }}>{mission.category.name}</Badge>
+                        <Badge colorScheme={moment(mission.endDate).diff(moment(), 'days') < 0 ? 'red' : 'orange'}>{moment(mission.endDate).diff(moment(), 'days') < 0 ? `en retard de ${moment(mission.endDate).diff(moment(), 'days') * -1} jour(s)` : `il reste ${moment(mission.endDate).diff(moment(), 'days')} jours`}</Badge></div>
                 </div>
                 <div className={styles.missionPoint}>
                     {mission.points} pts
@@ -347,7 +346,7 @@ const Dashboard = ({ Component, pageProps }) => {
                 <Heading as='h3' size='lg'>Bonjour {firstname}</Heading>
                 <div className={styles.topContainer}>
                     {!isChild && <Text fontSize='md'>{childrensList.length} ENFANTS</Text>}
-                    <Text fontSize='md'>{missionsInProgress.length} MISSION</Text>
+                    {!isChild && <Text fontSize='md'>{missionsInProgress.length} MISSION</Text>}
                 </div>
                 {!isChild && <div className={styles.childrenContainer}>
                     <Heading as='h5' size='sm'>
