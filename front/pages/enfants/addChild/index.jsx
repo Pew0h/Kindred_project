@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import DashboardLayout from "../../../src/layouts/DashboardLayout/DashboardLayout";
 import styles from "./index.module.scss";
-import {Button, Heading, Input, useToast } from "@chakra-ui/react";
+import { Button, Heading, Input, useToast } from "@chakra-ui/react";
 
 const AddChild = ({ Component, pageProps }) => {
 
@@ -10,6 +10,31 @@ const AddChild = ({ Component, pageProps }) => {
     const [newChildPhone, setNewChildPhone] = useState('');
 
     const toast = useToast();
+
+    const sendEmail = (e) => {
+        console.log(e)
+        let data = {
+            newChildName,
+            newChildEmail,
+            newChildPhone
+        }
+        fetch('/api/sendEmail', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          }).then((res) => {
+            console.log('Response received')
+            if (res.status === 200) {
+              console.log('Response succeeded!')
+              setNewChildPhone('')
+              setNewChildName('')
+              setNewChildEmail('')
+            }
+          })
+    }
 
     return (
         <>
@@ -21,7 +46,7 @@ const AddChild = ({ Component, pageProps }) => {
                         type="text"
                         backgroundColor="white"
                         placeholder='Juliette'
-                        onChange={(event) => {setNewChildName(event.target.value)}}
+                        onChange={(event) => { setNewChildName(event.target.value) }}
                     />
                 </div>
 
@@ -31,9 +56,10 @@ const AddChild = ({ Component, pageProps }) => {
                         type="text"
                         backgroundColor="white"
                         placeholder='adresse@exemple.fr'
-                        onChange={(event) => {setNewChildEmail(event.target.value)}}
+                        onChange={(event) => { setNewChildEmail(event.target.value) }}
                     />
                     <Button colorScheme='teal' size='md' onClick={() => {
+                        sendEmail()
                         toast({
                             title: `Email envoyé à ${newChildName}`,
                             description: `Un email d'inscription à été envoyé à ${newChildEmail}`,
@@ -52,7 +78,7 @@ const AddChild = ({ Component, pageProps }) => {
                         type="text"
                         backgroundColor="white"
                         placeholder='06 06 06 06 06'
-                        onChange={(event) => {setNewChildPhone(event.target.value)}}
+                        onChange={(event) => { setNewChildPhone(event.target.value) }}
                     />
                     <Button colorScheme='teal' size='md' onClick={() => {
                         toast({
