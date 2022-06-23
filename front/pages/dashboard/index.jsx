@@ -25,6 +25,8 @@ const Dashboard = ({ Component, pageProps }) => {
     useEffect(() => {
     }, [childrensList])
 
+
+
     useEffect(() => {
         setMissionsInProgress(missions.filter((mission) =>
             (mission.parentNote === null || mission.childNote === null)));
@@ -34,227 +36,227 @@ const Dashboard = ({ Component, pageProps }) => {
         ));
     }, [missions])
     const now = moment();
-    // console.log(now)
-    const childMissions = [
-        {
-            "id": 1,
-            "name": "Jouer au PC",
-            "points": 485,
-            "startDate": "2022-06-03T00:00:00+00:00",
-            "endDate": "2022-07-03T00:00:00+00:00",
-            "category": {
-                "id": 1,
-                "name": "Courses"
-            },
-            "child": {
-                "id": 211,
-                "email": "child1@example.com",
-                "roles": [
-                    "ROLE_CHILD"
-                ],
-                "firstname": "Vandervort",
-                "lastname": "Moen",
-                "parent": {
-                    "id": 161,
-                    "email": "parent1@example.com",
-                    "roles": [
-                        "ROLE_PARENT"
-                    ],
-                    "firstname": "McClure",
-                    "lastname": "Adams",
-                    "parent": null
-                }
-            },
-            "parent": {
-                "id": 161,
-                "email": "parent1@example.com",
-                "roles": [
-                    "ROLE_PARENT"
-                ],
-                "firstname": "McClure",
-                "lastname": "Adams",
-                "parent": null
-            },
-            "childNote": {
-                "id": 1,
-                "name": "Bien",
-                "coefficient": 2
-            },
-            "parentNote": {
-                "id": 1,
-                "name": "Bien",
-                "coefficient": 2
-            }
-        },
-        {
-            "id": 41,
-            "name": "Nettoyer la cheminée",
-            "points": 20,
-            "startDate": "2022-06-22T00:00:00+00:00",
-            "endDate": "2022-06-26T00:00:00+00:00",
-            "category": {
-                "id": 1,
-                "name": "Courses"
-            },
-            "child": {
-                "id": 211,
-                "email": "child1@example.com",
-                "roles": [
-                    "ROLE_CHILD"
-                ],
-                "firstname": "Vandervort",
-                "lastname": "Moen",
-                "parent": {
-                    "id": 161,
-                    "email": "parent1@example.com",
-                    "roles": [
-                        "ROLE_PARENT"
-                    ],
-                    "firstname": "McClure",
-                    "lastname": "Adams",
-                    "parent": null
-                }
-            },
-            "parent": {
-                "id": 161,
-                "email": "parent1@example.com",
-                "roles": [
-                    "ROLE_PARENT"
-                ],
-                "firstname": "McClure",
-                "lastname": "Adams",
-                "parent": null
-            },
-            "childNote": null,
-            "parentNote": null
-        },
-        {
-            "id": 42,
-            "name": "Nettoyer le couloir",
-            "points": 20,
-            "startDate": "2022-06-22T00:00:00+00:00",
-            "endDate": "2022-06-22T00:00:00+00:00",
-            "category": {
-                "id": 1,
-                "name": "Courses"
-            },
-            "child": {
-                "id": 211,
-                "email": "child1@example.com",
-                "roles": [
-                    "ROLE_CHILD"
-                ],
-                "firstname": "Vandervort",
-                "lastname": "Moen",
-                "parent": {
-                    "id": 161,
-                    "email": "parent1@example.com",
-                    "roles": [
-                        "ROLE_PARENT"
-                    ],
-                    "firstname": "McClure",
-                    "lastname": "Adams",
-                    "parent": null
-                }
-            },
-            "parent": {
-                "id": 161,
-                "email": "parent1@example.com",
-                "roles": [
-                    "ROLE_PARENT"
-                ],
-                "firstname": "McClure",
-                "lastname": "Adams",
-                "parent": null
-            },
-            "childNote": null,
-            "parentNote": null
-        },
-        {
-            "id": 42,
-            "name": "Nettoyer le couloir du sous-sol",
-            "points": 20,
-            "startDate": "2022-06-13T00:00:00+00:00",
-            "endDate": "2022-06-17T00:00:00+00:00",
-            "category": {
-                "id": 1,
-                "name": "Courses"
-            },
-            "child": {
-                "id": 211,
-                "email": "child1@example.com",
-                "roles": [
-                    "ROLE_CHILD"
-                ],
-                "firstname": "Vandervort",
-                "lastname": "Moen",
-                "parent": {
-                    "id": 161,
-                    "email": "parent1@example.com",
-                    "roles": [
-                        "ROLE_PARENT"
-                    ],
-                    "firstname": "McClure",
-                    "lastname": "Adams",
-                    "parent": null
-                }
-            },
-            "parent": {
-                "id": 161,
-                "email": "parent1@example.com",
-                "roles": [
-                    "ROLE_PARENT"
-                ],
-                "firstname": "McClure",
-                "lastname": "Adams",
-                "parent": null
-            },
-            "childNote": null,
-            "parentNote": null
-        },
-        {
-            "id": 43,
-            "name": "Nettoyer la cuisine",
-            "points": 20,
-            "startDate": "2022-06-06T00:00:00+00:00",
-            "endDate": "2022-06-12T00:00:00+00:00",
-            "category": {
-                "id": 1,
-                "name": "Courses"
-            },
-            "child": {
-                "id": 211,
-                "email": "child1@example.com",
-                "roles": [
-                    "ROLE_CHILD"
-                ],
-                "firstname": "Vandervort",
-                "lastname": "Moen",
-                "parent": {
-                    "id": 161,
-                    "email": "parent1@example.com",
-                    "roles": [
-                        "ROLE_PARENT"
-                    ],
-                    "firstname": "McClure",
-                    "lastname": "Adams",
-                    "parent": null
-                }
-            },
-            "parent": {
-                "id": 161,
-                "email": "parent1@example.com",
-                "roles": [
-                    "ROLE_PARENT"
-                ],
-                "firstname": "McClure",
-                "lastname": "Adams",
-                "parent": null
-            },
-            "childNote": null,
-            "parentNote": null
-        }
-    ];
+    // const childMissions = [
+    //     {
+    //         "id": 1,
+    //         "name": "Jouer au PC",
+    //         "points": 485,
+    //         "startDate": "2022-06-03T00:00:00+00:00",
+    //         "endDate": "2022-07-03T00:00:00+00:00",
+    //         "category": {
+    //             "id": 1,
+    //             "name": "Courses"
+    //         },
+    //         "child": {
+    //             "id": 211,
+    //             "email": "child1@example.com",
+    //             "roles": [
+    //                 "ROLE_CHILD"
+    //             ],
+    //             "firstname": "Vandervort",
+    //             "lastname": "Moen",
+    //             "parent": {
+    //                 "id": 161,
+    //                 "email": "parent1@example.com",
+    //                 "roles": [
+    //                     "ROLE_PARENT"
+    //                 ],
+    //                 "firstname": "McClure",
+    //                 "lastname": "Adams",
+    //                 "parent": null
+    //             }
+    //         },
+    //         "parent": {
+    //             "id": 161,
+    //             "email": "parent1@example.com",
+    //             "roles": [
+    //                 "ROLE_PARENT"
+    //             ],
+    //             "firstname": "McClure",
+    //             "lastname": "Adams",
+    //             "parent": null
+    //         },
+    //         "childNote": {
+    //             "id": 1,
+    //             "name": "Bien",
+    //             "coefficient": 2
+    //         },
+    //         "parentNote": {
+    //             "id": 1,
+    //             "name": "Bien",
+    //             "coefficient": 2
+    //         }
+    //     },
+    //     {
+    //         "id": 41,
+    //         "name": "Nettoyer la cheminée",
+    //         "points": 20,
+    //         "startDate": "2022-06-22T00:00:00+00:00",
+    //         "endDate": "2022-06-26T00:00:00+00:00",
+    //         "category": {
+    //             "id": 1,
+    //             "name": "Courses"
+    //         },
+    //         "child": {
+    //             "id": 211,
+    //             "email": "child1@example.com",
+    //             "roles": [
+    //                 "ROLE_CHILD"
+    //             ],
+    //             "firstname": "Vandervort",
+    //             "lastname": "Moen",
+    //             "parent": {
+    //                 "id": 161,
+    //                 "email": "parent1@example.com",
+    //                 "roles": [
+    //                     "ROLE_PARENT"
+    //                 ],
+    //                 "firstname": "McClure",
+    //                 "lastname": "Adams",
+    //                 "parent": null
+    //             }
+    //         },
+    //         "parent": {
+    //             "id": 161,
+    //             "email": "parent1@example.com",
+    //             "roles": [
+    //                 "ROLE_PARENT"
+    //             ],
+    //             "firstname": "McClure",
+    //             "lastname": "Adams",
+    //             "parent": null
+    //         },
+    //         "childNote": null,
+    //         "parentNote": null
+    //     },
+    //     {
+    //         "id": 42,
+    //         "name": "Nettoyer le couloir",
+    //         "points": 20,
+    //         "startDate": "2022-06-22T00:00:00+00:00",
+    //         "endDate": "2022-06-22T00:00:00+00:00",
+    //         "category": {
+    //             "id": 1,
+    //             "name": "Courses"
+    //         },
+    //         "child": {
+    //             "id": 211,
+    //             "email": "child1@example.com",
+    //             "roles": [
+    //                 "ROLE_CHILD"
+    //             ],
+    //             "firstname": "Vandervort",
+    //             "lastname": "Moen",
+    //             "parent": {
+    //                 "id": 161,
+    //                 "email": "parent1@example.com",
+    //                 "roles": [
+    //                     "ROLE_PARENT"
+    //                 ],
+    //                 "firstname": "McClure",
+    //                 "lastname": "Adams",
+    //                 "parent": null
+    //             }
+    //         },
+    //         "parent": {
+    //             "id": 161,
+    //             "email": "parent1@example.com",
+    //             "roles": [
+    //                 "ROLE_PARENT"
+    //             ],
+    //             "firstname": "McClure",
+    //             "lastname": "Adams",
+    //             "parent": null
+    //         },
+    //         "childNote": null,
+    //         "parentNote": null
+    //     },
+    //     {
+    //         "id": 42,
+    //         "name": "Nettoyer le couloir du sous-sol",
+    //         "points": 20,
+    //         "startDate": "2022-06-13T00:00:00+00:00",
+    //         "endDate": "2022-06-17T00:00:00+00:00",
+    //         "category": {
+    //             "id": 1,
+    //             "name": "Courses"
+    //         },
+    //         "child": {
+    //             "id": 211,
+    //             "email": "child1@example.com",
+    //             "roles": [
+    //                 "ROLE_CHILD"
+    //             ],
+    //             "firstname": "Vandervort",
+    //             "lastname": "Moen",
+    //             "parent": {
+    //                 "id": 161,
+    //                 "email": "parent1@example.com",
+    //                 "roles": [
+    //                     "ROLE_PARENT"
+    //                 ],
+    //                 "firstname": "McClure",
+    //                 "lastname": "Adams",
+    //                 "parent": null
+    //             }
+    //         },
+    //         "parent": {
+    //             "id": 161,
+    //             "email": "parent1@example.com",
+    //             "roles": [
+    //                 "ROLE_PARENT"
+    //             ],
+    //             "firstname": "McClure",
+    //             "lastname": "Adams",
+    //             "parent": null
+    //         },
+    //         "childNote": null,
+    //         "parentNote": null
+    //     },
+    //     {
+    //         "id": 43,
+    //         "name": "Nettoyer la cuisine",
+    //         "points": 20,
+    //         "startDate": "2022-06-06T00:00:00+00:00",
+    //         "endDate": "2022-06-12T00:00:00+00:00",
+    //         "category": {
+    //             "id": 1,
+    //             "name": "Courses"
+    //         },
+    //         "child": {
+    //             "id": 211,
+    //             "email": "child1@example.com",
+    //             "roles": [
+    //                 "ROLE_CHILD"
+    //             ],
+    //             "firstname": "Vandervort",
+    //             "lastname": "Moen",
+    //             "parent": {
+    //                 "id": 161,
+    //                 "email": "parent1@example.com",
+    //                 "roles": [
+    //                     "ROLE_PARENT"
+    //                 ],
+    //                 "firstname": "McClure",
+    //                 "lastname": "Adams",
+    //                 "parent": null
+    //             }
+    //         },
+    //         "parent": {
+    //             "id": 161,
+    //             "email": "parent1@example.com",
+    //             "roles": [
+    //                 "ROLE_PARENT"
+    //             ],
+    //             "firstname": "McClure",
+    //             "lastname": "Adams",
+    //             "parent": null
+    //         },
+    //         "childNote": null,
+    //         "parentNote": null
+    //     }
+    // ];
+    const childMissions = missions;
     const mondayOfLastWeek = moment().startOf('isoWeek').subtract(7, 'days');
     const sundayOfLastWeek = moment(mondayOfLastWeek).add(6, 'days');
     const nextSunday = moment().endOf('isoWeek');
@@ -264,8 +266,8 @@ const Dashboard = ({ Component, pageProps }) => {
     useEffect(() => {
         if (UserContext.user.role == 'ROLE_CHILD') {
             getFromServer('missions').then((missionsList) => {
+                setMissions(missionsList.data);
             });
-
         } else {
             getFromServer('users').then((userList) => {
                 setChildrensList(userList.data.filter((user) => (user.roles[0] === 'ROLE_CHILD' && user.parent.id === parseInt(id))));
@@ -334,12 +336,6 @@ const Dashboard = ({ Component, pageProps }) => {
             </div>
         ))
     }
-    const ChildrensList = () => {
-
-    }
-    // const ChildsMissionsInProgress = () => {
-
-    // }
     return (
         <>
             <div className={styles.dashboardContainer}>
