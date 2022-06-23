@@ -1,0 +1,5 @@
+# api/fixtures/reward.yaml
+App\Entity\Reward:
+  reward{1..4}:
+    name (unique): <randomElement(['Argent de poche',  'Session jeu vidéo', 'Bowling', 'Paintball'])>
+    points: <numberBetween(20, 300)>

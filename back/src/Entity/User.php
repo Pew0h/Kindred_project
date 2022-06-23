@@ -84,6 +84,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[SerializedName("password")]
     private $plainPassword;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['read'])]
+    private $points;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -195,6 +199,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setParent(?self $parent): self
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(?int $points): self
+    {
+        $this->points = $points;
 
         return $this;
     }
