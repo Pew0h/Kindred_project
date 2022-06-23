@@ -256,7 +256,8 @@ const Dashboard = ({ Component, pageProps }) => {
     //         "parentNote": null
     //     }
     // ];
-    const childMissions = missions;
+   console.log();
+    const childMissions = missions.filter((mission) => UserContext.user.id == mission.child.id);
     const mondayOfLastWeek = moment().startOf('isoWeek').subtract(7, 'days');
     const sundayOfLastWeek = moment(mondayOfLastWeek).add(6, 'days');
     const nextSunday = moment().endOf('isoWeek');
