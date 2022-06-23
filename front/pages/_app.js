@@ -66,7 +66,7 @@ function MyApp({Component, pageProps}) {
                 token
             })
             setServerToken(token);
-            getCurrentUser();
+            // getCurrentUser();
         }
     }
 

@@ -265,6 +265,15 @@ const Dashboard = ({ Component, pageProps }) => {
     const childsMissionsLastWeek = childMissions.filter((mission) => moment(mission.startDate).isSameOrAfter(mondayOfLastWeek) && moment(mission.endDate).isSameOrBefore(sundayOfLastWeek));
     const childsOldMissions = childMissions.filter((mission) => moment(mission.endDate).isBefore(mondayOfLastWeek));
     useEffect(() => {
+        getFromServer('users').then((userList) => {
+            setChildrensList(userList.data.filter((user) => (user.roles[0] === 'ROLE_CHILD' && user.parent.id === parseInt(id))));
+
+        getFromServer('missions').then((missionsList) => {
+            setMissions(missionsList.data);
+            });
+
+        })
+    }, [])
         if (UserContext.user.role == 'ROLE_CHILD') {
             getFromServer('missions').then((missionsList) => {
                 setMissions(missionsList.data);
