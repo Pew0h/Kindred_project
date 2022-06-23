@@ -14,7 +14,8 @@ function MyApp({Component, pageProps}) {
         token: '',
         firstname: "Tchi",
         lastname: "Tchi",
-        role: ''
+        role: '',
+        id: ''
     });
 
     useEffect(onLoad, [])
@@ -46,12 +47,13 @@ function MyApp({Component, pageProps}) {
     function getCurrentUser() {
         getFromServer('current_user').then(response => {
 
-            const {data: {firstname, lastname, roles}} = response;
+            const {data: {id, firstname, lastname, roles}} = response;
             setUser({
                 ...user,
                 firstname,
                 lastname,
                 role: roles[0],
+                id
             })
         })
     }
@@ -59,12 +61,12 @@ function MyApp({Component, pageProps}) {
     function onLoad() {
         const token = localStorage.getItem('token');
         if (token) {
-            console.log("Azy je charge");
             setUser({
                 ...user,
                 token
             })
             setServerToken(token);
+            getCurrentUser();
         }
     }
 

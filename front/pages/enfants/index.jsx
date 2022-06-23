@@ -1,16 +1,22 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import DashboardLayout from "../../src/layouts/DashboardLayout/DashboardLayout";
-
 
 import {Avatar, Link, Table, TableContainer, Tbody, Td, Tr} from '@chakra-ui/react';
 
 import {getFromServer, postOnServer} from "../../src/utils/server";
 import NextLink from "next/link";
 import styles from "./index.module.scss";
+import {useRouter} from "next/router";
 
 const Index = ({Component, pageProps}) => {
 
     const [contractsList, setContractsList] = useState([]);
+
+    const router = useRouter();
+    const handleAddChild = () => {
+        router.push(`/enfants/addChild`);
+    };
+
 
     useEffect(() => {
         getFromServer('contracts').then((contractsList) => {
@@ -54,7 +60,9 @@ const Index = ({Component, pageProps}) => {
                     </Tbody>
                 </Table>
             </TableContainer>
-
+            <div className={styles.addChildContainer} onClick={handleAddChild}>
+                Ajouter enfant
+            </div>
         </div>
     );
 };

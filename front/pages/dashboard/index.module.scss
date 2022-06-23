@@ -1,0 +1,98 @@
+.dashboardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+
+  .dashboardBoxContent {
+    width: 80%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+  }
+
+  .topContainer {
+    display: flex;
+
+    p {
+      padding: 10px;
+    }
+  }
+
+  .missionContainer {
+    width: 80%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    .missionContent {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width:85%;
+      background-color : #81E6D9;
+      padding: 10px;
+      border-radius: 10px;
+
+      .missionNameBadge {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+
+        span {
+          width: fit-content;
+        }
+      }
+
+      .selectNote {
+        width: 50%;
+      }
+    }
+  }
+
+  .childrenContainer {
+    width: 80%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    .childrenContent {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width:85%;
+      background-color : #81E6D9;
+      padding: 10px;
+      border-radius: 10px;
+
+      label {
+        width: 25%
+      }
+    }
+  }
+
+  .addMissionContainer {
+    position: fixed;
+    background-color: rgb(79,209,197,0.6);
+    width: calc(100vw - 15rem);
+    bottom: 0;
+    height: 2rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

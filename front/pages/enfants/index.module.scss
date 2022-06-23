@@ -11,3 +11,14 @@
     border-collapse: separate !important;
     border-spacing: 0 1rem;
 }
+
+.addChildContainer {
+    position: fixed;
+    background-color: rgb(79,209,197,0.6);
+    width: calc(100vw - 15rem);
+    bottom: 0;
+    height: 2rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}

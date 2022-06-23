@@ -86,7 +86,7 @@ export default function Login() {
             const {token} = response.data;
             localStorage.setItem('token', token);
             setToken(token);
-            router.push('/enfants');
+            router.push('/dashboard');
         }
 
     }

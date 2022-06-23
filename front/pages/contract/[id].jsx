@@ -15,7 +15,6 @@ function Contract() {
     const {
         query: {id: contractId},
     } = useRouter();
-    console.log(contractId);
 
     useEffect(() => {
         console.log(contract);
@@ -54,7 +53,7 @@ function Contract() {
         </div>
     ) : (
         <div>
-            <p>Children interdit</p>
+            <p>Rôle enfant à gérer</p>
         </div>
     )
 }
