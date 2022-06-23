@@ -12,7 +12,6 @@ const AddChild = ({ Component, pageProps }) => {
     const toast = useToast();
 
     const sendEmail = (e) => {
-        console.log(e)
         let data = {
             newChildName,
             newChildEmail,
@@ -32,6 +31,25 @@ const AddChild = ({ Component, pageProps }) => {
               setNewChildPhone('')
               setNewChildName('')
               setNewChildEmail('')
+            }
+          })
+    }
+    const sendSms = (e) => {
+        let data = {
+            newChildPhone
+        }
+        fetch('/api/sendSMS', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          }).then((res) => {
+            console.log('Response received')
+            if (res.status === 200) {
+              console.log('Response succeeded!')
+              setNewChildPhone('')
             }
           })
     }
@@ -81,6 +99,7 @@ const AddChild = ({ Component, pageProps }) => {
                         onChange={(event) => { setNewChildPhone(event.target.value) }}
                     />
                     <Button colorScheme='teal' size='md' onClick={() => {
+                        sendSms()
                         toast({
                             title: `Sms envoyé à ${newChildName}`,
                             description: `Un SMS d'inscription à été envoyé à ${newChildPhone}`,
