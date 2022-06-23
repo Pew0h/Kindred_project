@@ -12,10 +12,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ORM\Entity(repositoryClass: MissionRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'get' => [
-            "security" => "is_granted('ROLE_PARENT')",
-            "security_message" => "Only parent can view all missions"
-        ],
+        'get',
         'post' => [
             "security" => "is_granted('ROLE_PARENT')",
             "security_message" => "Only parent can create a mission"
