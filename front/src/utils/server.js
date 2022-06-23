@@ -23,7 +23,7 @@ export function setServerToken(token) {
     };
 }
 
-export async function getFromServer(endpoint) {
+export async function  getFromServer(endpoint) {
     return instance.get(endpoint).then(response => {
         return response;
     })
