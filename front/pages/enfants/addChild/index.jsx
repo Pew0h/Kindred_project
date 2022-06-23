@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DashboardLayout from "../../../src/layouts/DashboardLayout/DashboardLayout";
 import styles from "./index.module.scss";
 import { Button, Heading, Input, useToast } from "@chakra-ui/react";
+import { AuthorizationDocumentContext } from "twilio/lib/rest/preview/hosted_numbers/authorizationDocument";
 
 const AddChild = ({ Component, pageProps }) => {
 
@@ -12,7 +13,6 @@ const AddChild = ({ Component, pageProps }) => {
     const toast = useToast();
 
     const sendEmail = (e) => {
-        console.log(e)
         let data = {
             newChildName,
             newChildEmail,
@@ -21,19 +21,40 @@ const AddChild = ({ Component, pageProps }) => {
         fetch('/api/sendEmail', {
             method: 'POST',
             headers: {
-              'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-          }).then((res) => {
+        }).then((res) => {
             console.log('Response received')
             if (res.status === 200) {
-              console.log('Response succeeded!')
-              setNewChildPhone('')
-              setNewChildName('')
-              setNewChildEmail('')
+                console.log('Response succeeded!')
+                setNewChildPhone('')
+                setNewChildName('')
+                setNewChildEmail('')
             }
-          })
+        })
+    }
+    const sendSms = (e) => {
+        let data = {
+            newChildName,
+            newChildEmail,
+            newChildPhone
+        }
+        fetch('/api/sendSMS', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then((res) => {
+            console.log('Response received')
+            if (res.status === 200) {
+                console.log('Response succeeded!')
+                setNewChildPhone('')
+            }
+        })
     }
 
     return (
@@ -78,9 +99,13 @@ const AddChild = ({ Component, pageProps }) => {
                         type="text"
                         backgroundColor="white"
                         placeholder='06 06 06 06 06'
-                        onChange={(event) => { setNewChildPhone(event.target.value) }}
+                        onChange={(event) => {
+                            console.log(newChildPhone);
+                            setNewChildPhone(event.target.value)
+                        }}
                     />
                     <Button colorScheme='teal' size='md' onClick={() => {
+                        sendSms()
                         toast({
                             title: `Sms envoyé à ${newChildName}`,
                             description: `Un SMS d'inscription à été envoyé à ${newChildPhone}`,
