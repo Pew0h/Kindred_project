@@ -366,11 +366,11 @@ const Dashboard = ({ Component, pageProps }) => {
                     {isChild && <Heading as='h5' size='sm'>MISSIONS EN COURS</Heading>}
                     {isChild && <ChildsMissionsInProgress></ChildsMissionsInProgress>}
                 </div>
-                <div className={styles.missionContainer}>
+                <div className={styles.missionContainer} style={{display: isChild ? 'flex' : 'none'}}>
                     {isChild && <Heading as='h5' size='sm'>MISSIONS DE LA SEMAINE DERNIÈRE</Heading>}
                     {isChild && <ChildsMissionsInLastWeeks></ChildsMissionsInLastWeeks>}
                 </div>
-                <div className={styles.missionContainer}>
+                <div className={styles.missionContainer} style={{display: isChild ? 'flex' : 'none'}}>
                     {isChild && <Heading as='h5' size='sm'>MISSIONS ANCIENNES</Heading>}
                     {isChild && <ChildsOldMissions></ChildsOldMissions>}
                 </div>
