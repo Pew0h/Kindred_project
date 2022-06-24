@@ -30,6 +30,10 @@ class UserReward
     #[Groups(['read'])]
     private $reward;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    #[Groups(['read'])]
+    private $validate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,6 +59,18 @@ class UserReward
     public function setReward(?Reward $reward): self
     {
         $this->reward = $reward;
+
+        return $this;
+    }
+
+    public function getValidate(): ?bool
+    {
+        return $this->validate;
+    }
+
+    public function setValidate(?bool $validate): self
+    {
+        $this->validate = $validate;
 
         return $this;
     }
