@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRewardRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRewardRepository::class)]
 #[ApiResource(
@@ -22,11 +23,13 @@ class UserReward
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: 'Should not to be empty')]
     #[Groups(['read'])]
     private $user;
 
     #[ORM\ManyToOne(targetEntity: Reward::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: 'Should not to be empty')]
     #[Groups(['read'])]
     private $reward;
 
