@@ -19,7 +19,7 @@ export default function (req, res) {
         subject: `[Kinkred] Un parent t'a inscrit à Kinkred`,
         text: 'Valide ton inscription',
         html: `<div>
-            Valide ton inscription en cliquant sur ce lien: <a href="http://localhost:3000/signup?email=${req.body.newChildEmail}&name=${req.body.newChildName}&phone=${req.body.newChildPhone}">Valider mon inscription</a>
+            Valide ton inscription en cliquant sur ce lien: <a href="http://localhost:3000/signup">Valider mon inscription</a>
         </div>`
     }
 

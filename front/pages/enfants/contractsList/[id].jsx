@@ -16,6 +16,11 @@ const ChildContractsList = ({ Component, pageProps }) => {
         query: {id: childrenId},
     } = useRouter();
 
+    const router = useRouter();
+    const handleAddContract = () => {
+        router.push(`/contract/addContract/`);
+    };
+
     useEffect(() => {
         getFromServer('contracts').then((allContractsList) => {
             setChildrenContractsList(allContractsList.data.filter((contract) =>
@@ -44,6 +49,9 @@ const ChildContractsList = ({ Component, pageProps }) => {
                         )
                     )
                 }
+                <div className={styles.addContractContainer} onClick={handleAddContract}>
+                    Ajouter un nouveau contrat
+                </div>
             </div>
 
         </>

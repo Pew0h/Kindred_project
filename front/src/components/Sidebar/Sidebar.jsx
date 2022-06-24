@@ -10,18 +10,24 @@ import {
     MenuList, Text, useColorModeValue, useDisclosure, VStack
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext} from "react";
 import {
-    FiBook, FiChevronDown, FiHome, FiMenu, FiUser
+    FiChevronDown, FiHome, FiMenu
 } from "react-icons/fi";
 import { TbChecklist } from "react-icons/tb"
+import { BiMedal } from "react-icons/bi"
 import theme from "../../theme/theme";
 import {userContext} from "../../../pages/_app";
 
-const LinkItems = [
+const LinkItemsParent = [
     { name: "Accueil", icon: FiHome, href: "/dashboard/" },
     { name: "Enfants", icon: TbChecklist, href: "/enfants/" },
+    { name: "Récompenses", icon: BiMedal, href: "/rewards/" }
+];
+
+const LinkItemsChild = [
+    { name: "Accueil", icon: FiHome, href: "/dashboard/" },
+    { name: "Historique des missions", icon: FiHome, href: "/missions/historical/" }
 ];
 
 export default function SidebarWithHeader({ children }) {
@@ -52,10 +58,8 @@ export default function SidebarWithHeader({ children }) {
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
-    let role = null;
-    if (typeof window !== "undefined") {
-        role = sessionStorage.getItem("role");
-    }
+    const {user: {role}} = useContext(userContext);
+
     return (
         <Box
             transition="3s ease"
@@ -73,11 +77,17 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 </Text>
                 <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
             </Flex>
-            {LinkItems.map((link) =>
+            {
+                role === 'ROLE_PARENT' ?
+                    LinkItemsParent.map((link) =>
                 <NavItem key={link.name} icon={link.icon} href={link.href}>
                     {link.name}
                 </NavItem>
-            )}
+            ) : LinkItemsChild.map((link) =>
+                        <NavItem key={link.name} icon={link.icon} href={link.href}>
+                            {link.name}
+                        </NavItem>
+                    )}
         </Box>
     );
 };
