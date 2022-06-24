@@ -1,0 +1,28 @@
+.contractsListContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+
+  .contractsListBoxContent {
+    width: 80%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .addContractContainer {
+    position: fixed;
+    background-color: rgb(79,209,197,0.6);
+    width: calc(100vw - 15rem);
+    bottom: 0;
+    height: 2rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,7 +1,12 @@
 import React, {useState, useContext, useEffect} from "react";
 import DashboardLayout from "../../../src/layouts/DashboardLayout/DashboardLayout";
 import styles from "./index.module.scss";
-import {Button, Heading, Input, Select, useToast } from "@chakra-ui/react";
+import {
+    Button, Heading, Input, Select, useToast, FormControl,
+    FormLabel,
+    FormErrorMessage,
+    FormHelperText,
+} from "@chakra-ui/react";
 import {getFromServer, postOnServer} from "../../../src/utils/server";
 import {userContext} from "../../_app";
 import {useRouter} from "next/router";
@@ -17,20 +22,29 @@ const AddMission = ({ Component, pageProps }) => {
 
     // States pour l'envoi de la requêtes
     const [missionName, setMissionName] = useState('');
+    const handleNameChange = (e) => setMissionName(e.target.value);
+    const isErrorName = missionName === '';
+
     const [missionCategory, setMissionCategory] = useState('');
+    const handleCategoryChange = (e) => setMissionCategory(e.target.value);
+    const isErrorCategory = missionCategory === '';
+
     const [missionChild, setMissionChild] = useState('');
+    const handleChildChange = (e) => setMissionChild(e.target.value);
+    const isErrorChild = missionChild === '';
+
     const [missionDeadline, setMissionDeadline] = useState('');
+    const handleDeadlineChange = (e) => setMissionDeadline(e.target.value);
+    const isErrorDeadline = missionDeadline === '';
+
     const [missionPoints, setMissionPoints] = useState('');
+    const handlePointsChange = (e) => setMissionPoints(e.target.value);
+    const isErrorPoints = missionPoints === '';
 
     // States pour valeur en base
     const [categoriesList, setCategories] = useState([]);
     const [childrensList, setChildrensList] = useState([]);
 
-
-    useEffect(() => {
-        console.log(categoriesList);
-
-    }, [categoriesList])
 
     // Récupération data à la création du composant
     useEffect(() => {
@@ -49,43 +63,89 @@ const AddMission = ({ Component, pageProps }) => {
                 <Heading as='h3' size='lg'>Créer une mission</Heading>
 
                 <div className={styles.createMissionBoxContent}>
-                    <label>Intitulé</label>
-                    <Input
-                        type="text"
-                        backgroundColor="white"
-                        placeholder='Nourrir le chat'
-                        onChange={(event) => {setMissionName(event.target.value)}}
-                    />
-                    <label>Catégorie</label>
-                    <Select backgroundColor="white" onChange={(event) => { setMissionCategory(event.target.value) }}>
-                        {
-                            categoriesList.map((categorie) => (
-                                <option value={categorie.id}>{categorie.name}</option>
-                            ))
-                        }
-                    </Select>
-                    <label>Pour qui ?</label>
-                    <Select backgroundColor="white" onChange={(event) => { setMissionChild(event.target.value) }}>
-                        {
-                            childrensList.map((children) => (
-                                <option value={children.id}>{children.firstname}</option>
-                            ))
-                        }
-                    </Select>
-                    <label>Deadline</label>
-                    <Input
-                        type="date"
-                        backgroundColor="white"
-                        placeholder='2002-06-23'
-                        onChange={(event) => {setMissionDeadline(event.target.value)}}
-                    />
-                    <label>Récompense en points</label>
-                    <Input
-                        type="number"
-                        backgroundColor="white"
-                        placeholder='3'
-                        onChange={(event) => {setMissionPoints(event.target.value)}}
-                    />
+                    <FormControl isInvalid={isErrorName} isRequired>
+                        <FormLabel htmlFor='name'>Intitulé</FormLabel>
+                        <Input
+                            id='name'
+                            type='text'
+                            value={missionName}
+                            placeholder='Nourrir le chat'
+                            onChange={handleNameChange}
+                        />
+                        {!isErrorName ? (
+                            <FormHelperText>
+                                Le nom de la mission
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage>Requis</FormErrorMessage>
+                        )}
+                    </FormControl>
+                    <FormControl isInvalid={isErrorCategory} isRequired>
+                        <FormLabel htmlFor='catégorie'>Catégorie</FormLabel>
+                        <Select id='catégorie' placeholder="Selectionner une catégorie" onChange={handleCategoryChange}>
+                            {
+                                categoriesList.map((categorie) => (
+                                    <option value={categorie.id}>{categorie.name}</option>
+                                ))
+                            }
+                        </Select>
+                        {!isErrorCategory ? (
+                            <FormHelperText>
+                                La catégorie de la mission
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage>Requis</FormErrorMessage>
+                        )}
+                    </FormControl>
+                    <FormControl isInvalid={isErrorChild} isRequired>
+                        <FormLabel htmlFor='who'>Pour qui ?</FormLabel>
+                        <Select id='who' placeholder="Selectionner un.e enfant" onChange={handleChildChange}>
+                            {
+                                childrensList.map((children) => (
+                                    <option value={children.id}>{children.firstname}</option>
+                                ))
+                            }
+                        </Select>
+                        {!isErrorChild ? (
+                            <FormHelperText>
+                                L'enfant attribué.e à la mission
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage>Requis</FormErrorMessage>
+                        )}
+                    </FormControl>
+                    <FormControl isInvalid={isErrorDeadline} isRequired>
+                        <FormLabel htmlFor='date'>Deadline</FormLabel>
+                        <Input
+                            type="date"
+                            backgroundColor="white"
+                            value={missionDeadline}
+                            onChange={handleDeadlineChange}
+                        />
+                        {!isErrorDeadline ? (
+                            <FormHelperText>
+                                La date limite de la mission
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage>Requis</FormErrorMessage>
+                        )}
+                    </FormControl>
+                    <FormControl isInvalid={isErrorPoints} isRequired>
+                        <FormLabel htmlFor='point'>Récompense en points</FormLabel>
+                        <Input
+                            type="number"
+                            backgroundColor="white"
+                            placeholder='3'
+                            onChange={handlePointsChange}
+                        />
+                        {!isErrorPoints ? (
+                            <FormHelperText>
+                                Les points que rapporte la mission
+                            </FormHelperText>
+                        ) : (
+                            <FormErrorMessage>Requis</FormErrorMessage>
+                        )}
+                    </FormControl>
                     <Button onClick={createMission} color='white' backgroundColor="#38B2AC">Envoyer</Button>
                 </div>
             </div>
@@ -94,41 +154,48 @@ const AddMission = ({ Component, pageProps }) => {
 
     async function createMission() {
 
-        const actualDay = new Date();
+        if (!isErrorName && !isErrorPoints && !isErrorChild && !isErrorCategory && !isErrorDeadline) {
+            const actualDay = new Date();
+            const response = await postOnServer('missions', {
+                name: missionName.toString(),
+                points: parseInt(missionPoints),
+                startDate: (actualDay.getFullYear() + '-' + (actualDay.getMonth()+1) + '-' + actualDay.getDate()).toString(),
+                endDate: missionDeadline.toString(),
+                category: missionCategory,
+                child: missionChild,
+                parent: id,
+                childNote: null,
+                parentNote: null
+            });
 
-        const response = await postOnServer('missions', {
-            name: missionName.toString(),
-            points: parseInt(missionPoints),
-            startDate: (actualDay.getFullYear() + '-' + (actualDay.getMonth()+1) + '-' + actualDay.getDate()).toString(),
-            endDate: missionDeadline.toString(),
-            category: missionCategory,
-            child: missionChild,
-            parent: id,
-            childNote: null,
-            parentNote: null
-        });
-
-        console.log(response);
-
-        if (response?.status === 200 || response?.status === 201) {
-            toast({
-                title: `Mission créée`,
-                status: 'success',
-                duration: 3000,
-                isClosable: true,
-            })
-            router.push('/dashboard');
+            if (response?.status === 200 || response?.status === 201) {
+                toast({
+                    title: `Mission créée`,
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+                router.push('/dashboard');
+            } else {
+                toast({
+                    title: `Echec de la création`,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
         } else {
             toast({
                 title: `Echec de la création`,
+                description: 'Les valeurs ne sont pas toutes remplies',
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
             })
         }
 
-    }
 
+    }
 };
 
 AddMission.getLayout = function getLayout(EmptyPage) {

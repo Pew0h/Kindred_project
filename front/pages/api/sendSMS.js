@@ -6,7 +6,7 @@ export default function sendMessage(req, res) {
     const client = twilio(accountSid, token);
     const { newChildName, newChildEmail, newChildPhone } = req.body;
     console.log(req.body)
-    const message = `Hello ${newChildName}. Un parent t\'a inscrit sur Kinkred. Lien: http://localhost:3000/signup?email=${newChildEmail}&name=${newChildName}&phone=${newChildPhone}`;
+    const message = `Hello ${newChildName}. Un parent t\'a inscrit sur Kinkred. Lien: http://localhost:3000/signup`;
     client.messages
         .create({
             body: message,
