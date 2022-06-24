@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Controller\CurrentUserController;
+use App\Controller\GetParentList;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -25,6 +26,12 @@ use Symfony\Component\Validator\Constraints as Assert;
             'path' => '/current_user',
             'method' => 'get',
             'controller' => CurrentUserController::class,
+            'pagination_enabled' => false,
+        ],
+        'parent_list' => [
+            'path' => '/parent_list',
+            'method' => 'get',
+            'controller' => GetParentList::class,
             'pagination_enabled' => false,
         ]
     ],
@@ -50,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups(['read'])]
-    private $id;
+    public $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Groups(['read'])]

@@ -12,10 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ContractRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'get' => [
-            "security" => "is_granted('ROLE_PARENT')",
-            "security_message" => "Only parent can view all contracts"
-        ],
+        'get',
         'post' => [
             "security" => "is_granted('ROLE_PARENT')",
             "security_message" => "Only parent can create a contract"
