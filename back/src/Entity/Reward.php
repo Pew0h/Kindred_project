@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Controller\CurrentUserController;
-use App\Controller\GetParentList;
 use App\Repository\RewardRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
