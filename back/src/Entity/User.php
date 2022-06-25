@@ -41,7 +41,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             "security_message" => "Only parent can view this user or the current user"
         ],
         'patch' => [
-            "security" => "is_granted('ROLE_PARENT') or object == user",
+            "security" => "is_granted('ROLE_PARENT') or object.id == user",
             "security_message" => "Only parent can modify this user or the current user"
         ],
         'delete' => [
