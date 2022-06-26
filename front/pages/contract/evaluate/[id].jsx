@@ -49,7 +49,11 @@ function Evaluate() {
             setMissions(missionsList.data.filter((mission) => mission.child.id === parseInt(childId)));
         });
         getFromServer('users/' + childId).then((userMissions) => {
-            setUserData(userMissions.data);
+            console.log("userMissions");
+            console.log(userMissions);
+
+
+            // setUserData(userMissions.data);
         });
         getFromServer('notes').then((noteList) => {
             setNotePossible(noteList.data);

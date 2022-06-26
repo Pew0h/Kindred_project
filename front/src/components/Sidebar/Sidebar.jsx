@@ -96,9 +96,19 @@ export default function SidebarWithHeader({ children }) {
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
-  const {
-    user: { role },
-  } = useContext(userContext);
+    const {user: {role, id}} = useContext(userContext);
+
+    const LinkItemsParent = [
+        { name: "Accueil", icon: FiHome, href: "/dashboard/" },
+        { name: "Enfants", icon: TbChecklist, href: "/enfants/" },
+        { name: "Récompenses", icon: BiMedal, href: "/rewards/" }
+    ];
+
+    const LinkItemsChild = [
+        { name: "Accueil", icon: FiHome, href: "/dashboard/" },
+        { name: "Evaluer mes missions", icon: FiHome, href: "/contract/evaluate/" + id.toString() },
+        { name: "Historique des missions", icon: FiHome, href: "/missions/historical/" }
+    ];
 
   return (
     <Box
