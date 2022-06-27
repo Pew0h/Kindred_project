@@ -4,10 +4,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../../src/assets/loginBackground.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
   height: 100%;
   width: 100%;
 
@@ -28,5 +24,22 @@
     &:hover {
       background-color: #38b2ac;
     }
+  }
+}
+
+.background {
+  background-color: #fffaf0;
+  position: fixed;
+  top: 0;
+  left: 0rem;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+
+  path:first-of-type {
+    fill: url(#shape-gradient-1) #ed8936;
+  }
+  path:last-of-type {
+    fill: url(#shape-gradient-2) #ed8936;
   }
 }
