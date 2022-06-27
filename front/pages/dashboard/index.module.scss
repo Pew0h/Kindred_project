@@ -12,7 +12,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px
+    gap: 10px;
   }
 
   .topContainer {
@@ -38,8 +38,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width:85%;
-      background-color : #81E6D9;
+      width: 85%;
+      background-color: #81e6d9;
       padding: 10px;
       border-radius: 10px;
 
@@ -74,24 +74,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width:85%;
-      background-color : #81E6D9;
+      width: 85%;
+      background-color: #81e6d9;
       padding: 10px;
       border-radius: 10px;
 
       label {
-        width: 25%
+        width: 25%;
       }
     }
   }
 
   .addMissionContainer {
     position: fixed;
-    background-color: rgb(79,209,197,0.6);
+    background-color: rgb(79, 209, 197, 0.6);
     width: calc(100vw - 15rem);
     bottom: 0;
-    height: 2rem;
-    display:flex;
+    height: 3rem;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
     justify-content: center;
     align-items: center;
   }
