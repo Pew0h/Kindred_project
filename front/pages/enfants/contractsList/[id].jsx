@@ -39,7 +39,7 @@ const ChildContractsList = ({ Component, pageProps }) => {
         <>
             <div className={styles.contractsListContainer}>
                 <Heading as='h3' size='lg'>Contrats de {children.firstname}</Heading>
-                {
+                {childrenContractsList.length > 0 ?
                     childrenContractsList.map((contract) => (
                         <div key={contract.id} className={styles.contractsListBoxContent}>
                             <NextLink href={"/contract/" + contract.id} passHref>
@@ -48,6 +48,12 @@ const ChildContractsList = ({ Component, pageProps }) => {
                         </div>
                         )
                     )
+                    :
+                    <div className={styles.contractsListBoxContent}>
+                        <div>
+                            <p>Aucun contrat lié à cet enfant</p>
+                        </div>
+                    </div>
                 }
                 <div className={styles.addContractContainer} onClick={handleAddContract}>
                     Ajouter un nouveau contrat

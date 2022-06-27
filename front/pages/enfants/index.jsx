@@ -96,7 +96,7 @@ const Enfants = ({ Component, pageProps }) => {
                     href={"../contract/evaluate/" + children.id}
                     passHref
                   >
-                    <Link>Évaluer</Link>
+                    <Link color="#319795">Évaluer</Link>
                   </NextLink>
                 </Td>
                 <Td className={styles.lastTd}>
@@ -104,7 +104,7 @@ const Enfants = ({ Component, pageProps }) => {
                     href={"../enfants/contractsList/" + children.id}
                     passHref
                   >
-                    <Link>Contrats</Link>
+                    <Link color="#319795">Contrats</Link>
                   </NextLink>
                 </Td>
               </Tr>
