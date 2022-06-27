@@ -26,8 +26,8 @@
   .missionContainer {
     width: 80%;
     background-color: white;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 0.5rem;
+    padding: 1rem 1rem 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,9 +38,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 85%;
+      width: 95%;
       background-color: #81e6d9;
-      padding: 10px;
+      padding: 0.5rem 1rem;
       border-radius: 10px;
 
       .missionNameBadge {
@@ -62,8 +62,8 @@
   .childrenContainer {
     width: 80%;
     background-color: white;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 0.5rem;
+    padding: 1rem 1rem 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,10 +74,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 85%;
+      width: 95%;
       background-color: #81e6d9;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
 
       label {
         width: 25%;
