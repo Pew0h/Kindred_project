@@ -116,7 +116,7 @@ function Contract() {
           duration: 3000,
           isClosable: true,
         });
-        router.push(`/contract/${contract.id}`);
+        router.push('/dashboard');
       } else {
         toast({
           title: `Echec de la signature`,
@@ -140,7 +140,7 @@ function Contract() {
           duration: 3000,
           isClosable: true,
         });
-        router.push(`/contract/${contract.id}`);
+        router.push('/dashboard');
       } else {
         toast({
           title: `Echec de la signature`,
