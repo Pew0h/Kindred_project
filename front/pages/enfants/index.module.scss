@@ -1,26 +1,34 @@
 .childContainer {
-    background-color: white;
+  background-color: white;
+
+  .firstTd {
+    border-radius: 0.5rem 0 0 0.5rem;
+  }
+  .lastTd {
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
 }
 
 .contractContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .contractTable {
-    border-collapse: separate !important;
-    border-spacing: 0 1rem;
+  border-collapse: separate !important;
+  border-spacing: 0 1rem;
+  border-radius: 1em;
 }
 
 .addChildContainer {
-    position: fixed;
-    background-color: rgb(79,209,197,0.6);
-    width: calc(100vw - 15rem);
-    bottom: 0;
-    height: 2rem;
-    display:flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  background-color: rgb(79, 209, 197, 0.6);
+  width: calc(100vw - 15rem);
+  bottom: 0;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

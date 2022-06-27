@@ -13,5 +13,13 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    .buttonCreate {
+      color: white;
+      background-color: #4fd1c5;
+      &:hover {
+        background-color: #38b2ac;
+      }
+    }
   }
 }

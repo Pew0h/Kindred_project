@@ -12,7 +12,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px
+    gap: 10px;
   }
 
   .topContainer {
@@ -26,21 +26,22 @@
   .missionContainer {
     width: 80%;
     background-color: white;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 0.5rem;
+    padding: 1rem 1rem 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 10px;
+    filter: drop-shadow(2px 1px 3px rgba(0, 0, 0, 0.25));
 
     .missionContent {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width:85%;
-      background-color : #81E6D9;
-      padding: 10px;
+      width: 95%;
+      background-color: #81e6d9;
+      padding: 0.5rem 1rem;
       border-radius: 10px;
 
       .missionNameBadge {
@@ -62,37 +63,57 @@
   .childrenContainer {
     width: 80%;
     background-color: white;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 0.5rem;
+    padding: 1rem 1rem 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 10px;
+    filter: drop-shadow(2px 1px 3px rgba(0, 0, 0, 0.25));
 
     .childrenContent {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width:85%;
-      background-color : #81E6D9;
-      padding: 10px;
-      border-radius: 10px;
+      width: 95%;
+      background-color: #81e6d9;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
 
       label {
-        width: 25%
+        width: 25%;
       }
     }
   }
 
   .addMissionContainer {
     position: fixed;
-    background-color: rgb(79,209,197,0.6);
+    background-color: rgb(79, 209, 197, 0.6);
     width: calc(100vw - 15rem);
     bottom: 0;
-    height: 2rem;
-    display:flex;
+    height: 3rem;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+.background {
+  background-color: #fffaf0;
+  position: fixed;
+  top: 0;
+  left: 10rem;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+
+  path:first-of-type {
+    fill: url(#shape-gradient-1) #ed8936;
+  }
+  path:last-of-type {
+    fill: url(#shape-gradient-2) #ed8936;
   }
 }

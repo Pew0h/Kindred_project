@@ -1,0 +1,16 @@
+.background {
+  background-color: #fffaf0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+
+  path:first-of-type {
+    fill: url(#shape-gradient-1) #ed8936;
+  }
+  path:last-of-type {
+    fill: url(#shape-gradient-2) #ed8936;
+  }
+}

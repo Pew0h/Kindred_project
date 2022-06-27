@@ -24,6 +24,7 @@
       justify-content: center;
       align-items: center;
       gap: 10px;
+      filter: drop-shadow(2px 1px 3px rgba(0, 0, 0, 0.25));
     }
   }
 
@@ -46,18 +47,34 @@
       justify-content: center;
       align-items: center;
       gap: 10px;
+      filter: drop-shadow(2px 1px 3px rgba(0, 0, 0, 0.25));
+
+      .confirmRewardRequest {
+        color: white;
+        background-color: #4fd1c5;
+        &:hover {
+          background-color: #38b2ac;
+        }
+      }
+
+      .refuseRewardRequest {
+        color: white;
+        background-color: #f56565;
+        &:hover {
+          background-color: #e53e3e;
+        }
+      }
     }
   }
 
-
-
   .addRewardContainer {
     position: fixed;
-    background-color: rgb(79,209,197,0.6);
+    background-color: rgb(79, 209, 197, 0.6);
     width: calc(100vw - 15rem);
     bottom: 0;
-    height: 2rem;
-    display:flex;
+    height: 3rem;
+    cursor: pointer;
+    display: flex;
     justify-content: center;
     align-items: center;
   }
