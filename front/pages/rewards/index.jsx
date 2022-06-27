@@ -63,10 +63,11 @@ const Rewards = ({ Component, pageProps }) => {
                         <Text fontSize='md'>Récompenses demandées : </Text>
                         {
                             rewardsRequestList.map((askedReward) => (
-                                <div>
-                                    {askedReward.user.firstname} : {askedReward.reward.name}
-                                    <Button onClick={() => validateReward(askedReward.id, true)} size='xs' color='white' backgroundColor="#48BB78">Accepter</Button>
-                                    <Button onClick={() => validateReward(askedReward.id, false)} size='xs' color='white' backgroundColor="#F56565">Refuser</Button>
+                                <div className={styles.rewardRequest}>
+                                    <span className={styles.firstName}>{askedReward.user.firstname} :</span>
+                                    <span> {askedReward.reward.name}</span>
+                                    <Button onClick={() => validateReward(askedReward.id, true)} className={styles.confirmRewardRequest} size='xs'>Accepter</Button>
+                                    <Button onClick={() => validateReward(askedReward.id, false)} className={styles.refuseRewardRequest} size='xs'>Refuser</Button>
                                 </div>
                             ))
                         }
