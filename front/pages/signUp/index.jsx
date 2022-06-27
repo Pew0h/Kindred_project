@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import {userContext} from "../_app";
 import {useRouter} from "next/router";
 import {postOnServer} from "../../src/utils/server";
@@ -14,19 +14,29 @@ import {
     Link, Select
 } from "@chakra-ui/react";
 import {AtSignIcon, UnlockIcon, QuestionOutlineIcon} from '@chakra-ui/icons'
-import NextLink from "next/link";
 import styles from "./index.module.scss";
+import { getFromServerWithoutHeader } from "../../src/utils/server";
 
 export default function Login() {
     const router = useRouter();
     const [nom, setNom] = useState('');
     const [prenom, setPrenom] = useState('');
     const [email, setEmail] = useState('');
+    const [parent, setParent] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('ROLE_PARENT');
 
+    const [parentList, setParentList] = useState([]);
+    const isChildren = role !== 'ROLE_PARENT';
+
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
+
+    useEffect(() => {
+        getFromServerWithoutHeader('parent_list').then((userList) => {
+            setParentList(userList.data);
+        });
+    }, [])
 
     const {setToken} = useContext(userContext);
 
@@ -101,6 +111,22 @@ export default function Login() {
                     </div>
                 </div>
 
+                {isChildren ? (
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                        <div style={{width: "47%"}}>
+                            <label>Parent</label>
+                            <Select backgroundColor="white" onChange={(event) => {null}}>
+                            {
+                                parentList.map((parent) => (
+                                <option value={parent.id}>{parent.firstname}</option>
+                                ))
+                            }
+                            </Select>
+                        </div>
+                    </div>
+                ) : null
+
+                }
 
                 <div>
                     <label>Mot de passe</label>
@@ -144,7 +170,7 @@ export default function Login() {
             password,
             firstname: prenom,
             lastname: nom,
-            parent: role === "ROLE_PARENT" ? null : 1,
+            parent: role === "ROLE_PARENT" ? null : parent,
         });
         if (response.status === 200) {
             router.push('/login');

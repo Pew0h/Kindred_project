@@ -35,16 +35,6 @@ function Evaluate() {
     }, [missions])
 
     useEffect(() => {
-        console.log(userData);
-
-    }, [userData])
-
-    useEffect(() => {
-        console.log(notePossible);
-
-    }, [notePossible])
-
-    useEffect(() => {
         getFromServer('missions').then((missionsList) => {
             setMissions(missionsList.data.filter((mission) => mission.child.id === parseInt(childId)));
         });

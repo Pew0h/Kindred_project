@@ -17,6 +17,10 @@ const instance = axios.create({
     baseURL
 })
 
+const instanceNoLogin = axios.create({
+    baseURL
+})
+
 export function setServerToken(token) {
     instance.defaults.headers = {
         Authorization: "Bearer " + token
@@ -34,6 +38,18 @@ export async function  getFromServer(endpoint) {
             window.location = "/login"
         }
     });
+}
+
+export async function  getFromServerWithoutHeader(endpoint) {
+    return instanceNoLogin.get(endpoint).then(response => {
+        return response;
+    }).catch(error => {
+        console.log(error);
+        const {response: {data: {message}}} = error;
+        if (message === 'Expired JWT Token' || message === 'JWT Token not found') {
+            window.location = "/login"
+        }
+    });;
 }
 
 export function postOnServer(endpoint, body) {

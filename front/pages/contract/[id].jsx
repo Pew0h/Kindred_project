@@ -32,52 +32,28 @@ function Contract() {
     });
   }, [contractId]);
 
-  return role === "ROLE_PARENT" ? (
-    <div className={styles.contractContainer}>
-      {contract && (
-        <>
-          <Heading as="h3" size="lg">
-            Contrat de {contract.child?.firstname}
-          </Heading>
-          <Text fontSize="md" className={styles.contractText}>
-            {contract.content}
-          </Text>
-          <Text fontSize="md" className={styles.contractPointText}>
-            {" "}
-            1 point = {contract.dollarPerPoint} €
-          </Text>
-          <div className={styles.signContainer}>
-            <Text
-              fontSize="md"
-              className={styles.sign}
-              backgroundColor={
-                contract.parentSignature
-                  ? "#38B2AC !important"
-                  : "#E53E3E !important"
-              }
-            >
-              Signature parent
-            </Text>
-            <Text
-              fontSize="md"
-              className={styles.sign}
-              backgroundColor={
-                contract.childSignature
-                  ? "#38B2AC !important"
-                  : "#E53E3E !important"
-              }
-            >
-              Signature enfant
-            </Text>
-          </div>
-        </>
-      )}
-    </div>
-  ) : (
-    <div>
-      <p>Rôle enfant à gérer</p>
-    </div>
-  );
+    return (
+        <div className={styles.contractContainer}>
+            {contract && (
+                <>
+                    <Heading as='h3' size='lg'>Contrat de {contract.child?.firstname}</Heading>
+                    <Text fontSize='md' className={styles.contractText}>{contract.content}</Text>
+                    <Text fontSize='md' className={styles.contractPointText}> 1 point
+                        = {contract.dollarPerPoint} €</Text>
+                    <div className={styles.signContainer}>
+                        <Text fontSize='md' className={styles.sign}
+                              backgroundColor={contract.parentSignature ? "#38B2AC !important" : "#E53E3E !important"}>
+                            Signature parent
+                        </Text>
+                        <Text fontSize='md' className={styles.sign}
+                              backgroundColor={contract.childSignature ? "#38B2AC !important" : "#E53E3E !important"}>
+                            Signature enfant
+                        </Text>
+                    </div>
+                </>
+            )}
+        </div>
+    )
 }
 
 Contract.getLayout = function (Contract) {
