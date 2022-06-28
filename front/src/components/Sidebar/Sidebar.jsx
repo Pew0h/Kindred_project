@@ -92,8 +92,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
     const LinkItemsChild = [
         { name: "Accueil", icon: FiHome, href: "/dashboard/" },
         { name: "Evaluer mes missions", icon: TbChecklist, href: "/contract/evaluate/" + id.toString() },
-        { name: "Historique des missions", icon: FiHome, href: "/missions/historical/" },
-        { name: "Cagnotte", icon: FiHome, href: "/jackpot/" }
+        { name: "Missions", icon: FiHome, href: "/missions/historical/" }
     ];
 
   return (
@@ -225,12 +224,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <NextLink href="/dashboard/profile" passHref>
-                <Link>
-                  <MenuItem>Profile</MenuItem>
-                </Link>
-              </NextLink>
-              <MenuDivider />
               <Link href="/login">
                 <MenuItem>Sign out</MenuItem>
               </Link>

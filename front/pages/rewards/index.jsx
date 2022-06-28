@@ -14,11 +14,11 @@ const Rewards = ({ Component, pageProps }) => {
 
     const [rewardsList, setRewardsList] = useState([]);
     const [rewardsRequestList, setRewardsRequestList] = useState([]);
-
-  const router = useRouter();
-  const handleAddReward = () => {
-    router.push(`/rewards/addReward/`);
-  };
+    const [missionsCompleted, setMissionsCompleted] = useState([]);
+    const router = useRouter();
+    const handleAddReward = () => {
+        router.push(`/rewards/addReward/`);
+    };
 
   useEffect(() => {
     console.log(rewardsList);
@@ -38,6 +38,13 @@ const Rewards = ({ Component, pageProps }) => {
             getFromServer('user_rewards').then((rewardsRequestList) => {
                 setRewardsRequestList(rewardsRequestList.data.filter((userReward)=> (userReward.user.id === parseInt(id))));
             });
+
+            getFromServer('missions').then((missionsList) => {
+                setMissionsCompleted(missionsList.data.filter(
+                    (mission) => mission.parentNote !== null && mission.childNote !== null
+                ));
+            });
+
         }
     }, []);
 
@@ -83,9 +90,12 @@ const Rewards = ({ Component, pageProps }) => {
         </>
     ) : (
         <>
-            Enfant
             <div className={styles.rewardContainer}>
                 <Heading as='h3' size='lg'>Récompenses</Heading>
+                <Heading as='h4' size='md'>Points</Heading>
+                <div>
+                    {missionsCompleted.filter((mission) => (mission.child.id === id))?.reduce((acc, value) => acc + value.points, 0) ?? '0'} pts
+                </div>
                 <Heading as='h4' size='md'>Récompenses disponibles</Heading>
                 <div className={styles.rewardsListContainer}>
                     {
