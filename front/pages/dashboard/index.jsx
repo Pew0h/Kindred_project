@@ -17,7 +17,7 @@ const Dashboard = ({ Component, pageProps }) => {
     };
 
      const goToContract = () => {
-         router.push('/contract/' + contractList[0].id);
+         router.push('/enfants/contractsList/' + id);
      }
 
     const goToRewards = () => {
@@ -136,8 +136,12 @@ const Dashboard = ({ Component, pageProps }) => {
                     }
                 </div>
 
-                <Button onClick={goToContract} color='#38B2AC' backgroundColor="white" border="2px solid #38B2AC">Voir mon contrat</Button>
-                <Button onClick={goToRewards} color='#38B2AC' backgroundColor="white" border="2px solid #38B2AC">Demander une récompense</Button>
+                <Button onClick={goToContract} color='#38B2AC' backgroundColor="white" border="2px solid #38B2AC">
+                    Voir mes contrats
+                </Button>
+                <Button onClick={goToRewards} color='#38B2AC' backgroundColor="white" border="2px solid #38B2AC">
+                    Demander une récompense
+                </Button>
             </div>
         </>
     );
