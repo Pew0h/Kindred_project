@@ -28,21 +28,6 @@ import theme from "../../theme/theme";
 import { userContext } from "../../../pages/_app";
 import styles from "./sidebar.module.scss";
 
-const LinkItemsParent = [
-  { name: "Accueil", icon: FiHome, href: "/dashboard/" },
-  { name: "Enfants", icon: TbChecklist, href: "/enfants/" },
-  { name: "Récompenses", icon: BiMedal, href: "/rewards/" },
-];
-
-const LinkItemsChild = [
-  { name: "Accueil", icon: FiHome, href: "/dashboard/" },
-  {
-    name: "Historique des missions",
-    icon: FiHome,
-    href: "/missions/historical/",
-  },
-];
-
 export default function SidebarWithHeader({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -106,8 +91,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
     const LinkItemsChild = [
         { name: "Accueil", icon: FiHome, href: "/dashboard/" },
-        { name: "Evaluer mes missions", icon: FiHome, href: "/contract/evaluate/" + id.toString() },
-        { name: "Historique des missions", icon: FiHome, href: "/missions/historical/" }
+        { name: "Evaluer mes missions", icon: TbChecklist, href: "/contract/evaluate/" + id.toString() },
+        { name: "Historique des missions", icon: FiHome, href: "/missions/historical/" },
+        { name: "Cagnotte", icon: FiHome, href: "/jackpot/" }
     ];
 
   return (

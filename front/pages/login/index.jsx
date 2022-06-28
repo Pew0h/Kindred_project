@@ -115,7 +115,7 @@ export default function Login() {
       email,
       password,
     });
-    if (response.status === 200) {
+    if (response?.status === 200) {
       const { token } = response.data;
       localStorage.setItem("token", token);
       setToken(token);

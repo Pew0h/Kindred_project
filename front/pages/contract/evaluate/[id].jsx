@@ -1,10 +1,11 @@
 import DashboardLayout from "../../../src/layouts/DashboardLayout/DashboardLayout";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext} from "react";
 
 import { useRouter } from "next/router";
-import {getFromServer} from "../../../src/utils/server";
+import {getFromServer, patchOnServer, postOnServer} from "../../../src/utils/server";
 import styles from "./index.module.scss";
-import {Badge, Heading, Select, Text} from "@chakra-ui/react";
+import {Badge, Heading, Select, Text, useToast} from "@chakra-ui/react";
+import {userContext} from "../../_app";
 
 function Evaluate() {
     const [missions, setMissions] = useState([]);
@@ -16,22 +17,20 @@ function Evaluate() {
         query: { id: childId },
     } = useRouter();
 
+    const {
+        user: { firstname, id, role },
+    } = useContext(userContext);
+
+    const router = useRouter();
+    const toast = useToast();
 
     useEffect(() => {
-        console.log("missions");
-        console.log(missions);
         setMissionsInProgress(missions.filter((mission) =>
             (mission.parentNote === null || mission.childNote === null)
         ));
         setMissionsCompleted(missions.filter((mission) =>
             (mission.parentNote !== null && mission.childNote !== null)
         ));
-
-        console.log("missionsCompleted");
-        console.log(missionsCompleted);
-        console.log("missionsInProgress");
-        console.log(missionsInProgress);
-
     }, [missions])
 
     useEffect(() => {
@@ -39,11 +38,7 @@ function Evaluate() {
             setMissions(missionsList.data.filter((mission) => mission.child.id === parseInt(childId)));
         });
         getFromServer('users/' + childId).then((userMissions) => {
-            console.log("userMissions");
-            console.log(userMissions);
-
-
-            // setUserData(userMissions.data);
+            setUserData(userMissions.data);
         });
         getFromServer('notes').then((noteList) => {
             setNotePossible(noteList.data);
@@ -58,7 +53,7 @@ function Evaluate() {
                     <Heading as='h5' size='sm'>
                         MISSIONS TERMINEES
                     </Heading>
-                    {
+                    { role === 'ROLE_PARENT' ? (
                         missionsCompleted.map((mission) => (
                             <div className={styles.missionContent}>
                                 <div className={styles.missionNameBadge}>
@@ -66,7 +61,7 @@ function Evaluate() {
                                     <Badge colorScheme='teal'>{mission.category.name}</Badge>
                                 </div>
                                 <div className={styles.selectNote}>
-                                    <Select backgroundColor="white" selected={mission.parentNote.id}>
+                                    <Select backgroundColor="white" selected={mission.parentNote.id} onChange={(event) => handleMissionParentNote(mission.id, event.target.value)}>
                                         {
                                             notePossible.map((note) => (
                                                 <option value={note.id} selected={mission.parentNote.id === note.id}>{note.name}</option>
@@ -77,13 +72,34 @@ function Evaluate() {
 
                             </div>
                         ))
+                        ) : (
+                        missionsCompleted.map((mission) => (
+                            <div className={styles.missionContent}>
+                                <div className={styles.missionNameBadge}>
+                                    <label>{mission.name}</label>
+                                    <Badge colorScheme='teal'>{mission.category.name}</Badge>
+                                </div>
+                                <div className={styles.selectNote}>
+                                    <Select backgroundColor="white" selected={mission.childNote.id} onChange={(event) => handleMissionChildNote(mission.id, event.target.value)}>
+                                        {
+                                            notePossible.map((note) => (
+                                                <option value={note.id} selected={mission.child.id === note.id}>{note.name}</option>
+                                            ))
+                                        }
+                                    </Select>
+                                </div>
+
+                            </div>
+                        ))
+                    )
+
                     }
                 </div>
                 <div className={styles.missionContainer}>
                     <Heading as='h5' size='sm'>
                         MISSIONS NON TERMINEES
                     </Heading>
-                    {
+                    { role === 'ROLE_PARENT' ? (
                         missionsInProgress.map((mission) => (
                             <div className={styles.missionContent}>
                                 <div className={styles.missionNameBadge}>
@@ -91,7 +107,10 @@ function Evaluate() {
                                     <Badge colorScheme='teal'>{mission.category.name}</Badge>
                                 </div>
                                 <div className={styles.selectNote}>
-                                    <Select backgroundColor="white" selected={mission.parentNote?.id}>
+                                    <Select backgroundColor="white" selected={mission.parentNote?.id} onChange={(event) => {
+                                        handleMissionParentNote(mission.id, event.target.value);
+                                    }}>
+                                        <option value={null}>-</option>
                                         {
                                             notePossible.map((note) => (
                                                 <option value={note.id} selected={mission.parentNote?.id === note.id}>{note.name}</option>
@@ -102,11 +121,95 @@ function Evaluate() {
 
                             </div>
                         ))
+                        ) : (
+                        missionsInProgress.map((mission) => (
+                            <div className={styles.missionContent}>
+                                <div className={styles.missionNameBadge}>
+                                    <label>{mission.name}</label>
+                                    <Badge colorScheme='teal'>{mission.category.name}</Badge>
+                                </div>
+                                <div className={styles.selectNote}>
+                                    <Select backgroundColor="white" selected={mission.childNote?.id} onChange={(event) => {
+                                        handleMissionChildNote(mission.id, event.target.value);
+                                    }}>
+                                        <option value={null}>-</option>
+                                        {
+                                            notePossible.map((note) => (
+                                                <option value={note.id} selected={mission.childNote?.id === note.id}>{note.name}</option>
+                                            ))
+                                        }
+                                    </Select>
+                                </div>
+
+                            </div>
+                        ))
+                    )
+
                     }
                 </div>
             </div>
         </>
     );
+
+    async function handleMissionParentNote(idMission, idNote) {
+        const response = await patchOnServer("missions/" + idMission, {
+            parentNote: idNote === '-' ? null : idNote,
+        });
+        if (response?.status === 200 || response?.status === 201) {
+            toast({
+                title: `Note parent mise à jour`,
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            });
+        } else {
+            if (response?.status === 500 || response?.status === undefined) {
+                toast({
+                    title: `Note parent mise à jour`,
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                });
+            } else {
+                toast({
+                    title: `Echec de la mise à jour`,
+                    status: "error",
+                    duration: 3000,
+                    isClosable: true,
+                });
+            }
+        }
+    }
+
+    async function handleMissionChildNote(idMission, idNote) {
+        const response = await patchOnServer("missions/" + idMission, {
+            childNote: idNote === '-' ? null : idNote,
+        });
+        if (response?.status === 200 || response?.status === 201) {
+            toast({
+                title: `Note enfant mise à jour`,
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            });
+        } else {
+            if (response?.status === 500 || response?.status === undefined) {
+                toast({
+                    title: `Note enfant mise à jour`,
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                });
+            } else {
+                toast({
+                    title: `Echec de la mise à jour`,
+                    status: "error",
+                    duration: 3000,
+                    isClosable: true,
+                });
+            }
+        }
+    }
 }
 
 Evaluate.getLayout = function (Contract) {

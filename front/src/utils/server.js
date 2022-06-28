@@ -10,9 +10,7 @@
  */
 
 import axios from "axios";
-
 const baseURL = 'https://api-kindred-project.herokuapp.com/api/';
-
 const instance = axios.create({
     baseURL
 })
