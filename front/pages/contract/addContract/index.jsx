@@ -87,7 +87,7 @@ const AddContractPage = ({ Component, pageProps }) => {
                         </Select>
                         {!isErrorChild ? (
                             <FormHelperText>
-                                Les points que coûtent la récompense
+                                L'enfant pour lequel vous créez le contrat
                             </FormHelperText>
                         ) : (
                             <FormErrorMessage>Requis</FormErrorMessage>
@@ -96,7 +96,7 @@ const AddContractPage = ({ Component, pageProps }) => {
 
 
                     <FormControl isInvalid={isErrorPoints} isRequired>
-                        <FormLabel htmlFor='name'>Points</FormLabel>
+                        <FormLabel htmlFor='name'>Points par semaine</FormLabel>
                         <Input
                             id='name'
                             type='number'
@@ -106,7 +106,7 @@ const AddContractPage = ({ Component, pageProps }) => {
                         />
                         {!isErrorPoints ? (
                             <FormHelperText>
-                                Les points que rapporte le contract
+                                Le nombre de points par semaine à répartir dans les missions
                             </FormHelperText>
                         ) : (
                             <FormErrorMessage>Requis</FormErrorMessage>
@@ -115,7 +115,7 @@ const AddContractPage = ({ Component, pageProps }) => {
 
 
                     <FormControl isInvalid={isErrorDollarPerPoint} isRequired>
-                        <FormLabel htmlFor='name'>Dollars par point</FormLabel>
+                        <FormLabel htmlFor='name'>Valeur des points</FormLabel>
                         <Input
                             id='name'
                             type='number'
@@ -125,13 +125,13 @@ const AddContractPage = ({ Component, pageProps }) => {
                         />
                         {!isErrorDollarPerPoint ? (
                             <FormHelperText>
-                                Le nombre de $ échangeable contre des points
+                                La valeur en € de chaque point
                             </FormHelperText>
                         ) : (
                             <FormErrorMessage>Requis</FormErrorMessage>
                         )}
                     </FormControl>
-                    <Button onClick={createContract} color='white' backgroundColor="#38B2AC">Envoyer</Button>
+                    <Button onClick={createContract} className={styles.confirmButton}>Créer le contrat</Button>
                 </div>
             </div>
         </>
@@ -149,12 +149,12 @@ const AddContractPage = ({ Component, pageProps }) => {
                 parentSignature: false,
                 weeklyPoint: parseInt(contractPoints),
                 dollarPerPoint: parseInt(contractDollarPerPoint),
-                status: 1
+                status: 21
             });
 
             if (response?.status === 200 || response?.status === 201) {
                 toast({
-                    title: `Contract créée`,
+                    title: `Contrat créé`,
                     status: 'success',
                     duration: 3000,
                     isClosable: true,

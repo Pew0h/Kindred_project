@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import DashboardLayout from "../../../src/layouts/DashboardLayout/DashboardLayout";
-import {useRouter} from "next/router";
-import {getFromServer} from "../../../src/utils/server";
-import {Heading, Link} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { userContext } from "../../_app";
+import { getFromServer } from "../../../src/utils/server";
+import { Heading, Link } from "@chakra-ui/react";
 import styles from "./index.module.scss";
 import NextLink from "next/link";
 
@@ -11,6 +12,9 @@ const ChildContractsList = ({ Component, pageProps }) => {
 
     const [childrenContractsList, setChildrenContractsList] = useState([]);
     const [children, setChildren] = useState({});
+
+    // On récupère l'utilisateur courant
+    const { user: { firstname, id, role } } = useContext(userContext);
 
     const {
         query: {id: childrenId},
@@ -29,7 +33,7 @@ const ChildContractsList = ({ Component, pageProps }) => {
         });
 
         getFromServer('users').then((usersList) => {
-            setChildren(usersList.data.find((user) =>
+            setChildren(usersList?.data.find((user) =>
                 user.id === parseInt(childrenId.toString())
             ));
         });
@@ -38,26 +42,38 @@ const ChildContractsList = ({ Component, pageProps }) => {
     return (
         <>
             <div className={styles.contractsListContainer}>
-                <Heading as='h3' size='lg'>Contrats de {children.firstname}</Heading>
+                {role == 'ROLE_PARENT' ?
+                    <Heading as='h3' size='lg'>Contrats de {children.firstname}</Heading>
+                    :
+                    <Heading as='h3' size='lg'>Mes contrats</Heading>
+                }
                 {childrenContractsList.length > 0 ?
                     childrenContractsList.map((contract) => (
                         <div key={contract.id} className={styles.contractsListBoxContent}>
                             <NextLink href={"/contract/" + contract.id} passHref>
-                                <Link>Contrat numéro {contract.id}</Link>
+                                <Link>
+                                    <div className={styles.contract}>
+                                        <span>Contrat n°{contract.id}</span>
+                                        <span className={styles.status}>
+                                            {contract.status.name}
+                                        </span>
+                                    </div>
+                                </Link>
                             </NextLink>
                         </div>
-                        )
-                    )
+                    ))
                     :
                     <div className={styles.contractsListBoxContent}>
                         <div>
-                            <p>Aucun contrat lié à cet enfant</p>
+                            <p>Aucun contrat</p>
                         </div>
                     </div>
                 }
-                <div className={styles.addContractContainer} onClick={handleAddContract}>
-                    Ajouter un nouveau contrat
-                </div>
+                {role == 'ROLE_PARENT' &&
+                    <div className={styles.addContractContainer} onClick={handleAddContract}>
+                        Ajouter un nouveau contrat
+                    </div>
+                }
             </div>
 
         </>

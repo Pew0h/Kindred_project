@@ -8,17 +8,30 @@
   .contractText {
     width: 80%;
     background-color: white;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
     text-align: center;
+    filter: drop-shadow(2px 1px 3px rgba(0, 0, 0, 0.25));
+
+  }
+
+  .contractDisabledText {
+    width: 80%;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    filter: drop-shadow(2px 1px 3px rgba(0, 0, 0, 0.25));
   }
 
   .contractPointText {
     width: 80%;
     background-color: white;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
     text-align: center;
+    filter: drop-shadow(2px 1px 3px rgba(0, 0, 0, 0.25));
   }
 
   .signContainer {
@@ -26,14 +39,40 @@
     flex-direction: row;
     width: 80%;
     justify-content: space-between;
+    align-items: center;
+    filter: drop-shadow(2px 1px 3px rgba(0, 0, 0, 0.25));
 
     .sign {
       width: 49%;
-      color: white;
-      background-color: #2d3748;
-      border-radius: 10px;
-      padding: 10px;
+      color: #2D3748;
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
       text-align: center;
+      opacity: 1 !important;
+    }
+
+    .signed {
+      width: 49%;
+      color: white;
+      background-color: #38B2AC;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      text-align: center;
+      opacity: 1 !important;
+    }
+  }
+
+  .deleteContract {
+    width: 80%;
+    color: white;
+    background-color: #E53E3E;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+    filter: drop-shadow(2px 1px 3px rgba(0, 0, 0, 0.25));
+    &:hover {
+      background-color: #F56565;
     }
   }
 }
