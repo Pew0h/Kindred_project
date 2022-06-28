@@ -149,7 +149,7 @@ const AddContractPage = ({ Component, pageProps }) => {
                 parentSignature: false,
                 weeklyPoint: parseInt(contractPoints),
                 dollarPerPoint: parseInt(contractDollarPerPoint),
-                status: 1
+                status: 21
             });
 
             if (response?.status === 200 || response?.status === 201) {

@@ -40,34 +40,48 @@ function Contract() {
             {contract && (
                 <>
                     <Heading as='h3' size='lg'>Contrat de {contract.child?.firstname}</Heading>
-                    <Text fontSize='md' className={styles.contractText}>{contract.content}</Text>
-                    <Text fontSize='md' className={styles.contractPointText}> 1 point
-                        = {contract.dollarPerPoint} €</Text>
-                    <div className={styles.signContainer}>
-                        {/* <Text fontSize='md' className={styles.sign}
-                              backgroundColor={contract.parentSignature ? "#38B2AC !important" : "#E53E3E !important"}>
-                            Signature parent
-                        </Text>
-                        <Text fontSize='md' className={styles.sign}
-                              backgroundColor={contract.childSignature ? "#38B2AC !important" : "#E53E3E !important"}>
-                            Signature enfant
-                        </Text> */}
-                          {!contract.parentSignature ?
-                            <Button h="3rem" size="md" className={styles.sign} onClick={signParent}>
-                              Signer le contrat
-                            </Button>
-                            :
-                            <Text fontSize='md' className={styles.sign}
-                              backgroundColor="#38B2AC !important">
-                                Vous avez signé
-                            </Text>
-                        }
 
-                            <Text fontSize='md' className={styles.sign}
-                            backgroundColor={contract.childSignature ? "#38B2AC !important" : "#E53E3E !important"}>
-                              {contract.childSignature ? "Signé par l'enfant" : "Non signé par l'enfant"}
-                            </Text>
-                    </div>
+                    {contract?.status?.id == 41 ?
+                      <Heading as='h3' size='md' className={styles.contractDisabledText}>{contract?.status?.name}</Heading>
+                      :
+                      contract?.status?.id == 21 ?
+                      <Text fontSize='md' className={styles.contractDisabledText}>Vous devez signer ce contrat pour le valider et permettre à votre enfant de le signer.</Text>
+                      :
+                      contract?.status?.id == 1 ?
+                      <Text fontSize='md' className={styles.contractDisabledText}>Ce contrat est en attente de la signature de votre enfant pour s'activer.</Text>
+                      :
+                      contract?.status?.id == 31 ?
+                      <Text fontSize='md' className={styles.contractDisabledText}>Ce contrat est actif, vous pouvez le supprimer si vous souhaitez en créer un nouveau.</Text>
+                      :
+                      ''
+                    }
+
+                      <Text fontSize='md' className={styles.contractText}>{contract.content}</Text>
+                    
+                      <Text fontSize='md' className={styles.contractPointText}>
+                        1 point = {contract.dollarPerPoint} €
+                      </Text>
+                      <div className={styles.signContainer}>
+                        {contract?.status?.id == 21 ?
+                          <Button h="3rem" size="md" className={styles.sign} onClick={signParent}>
+                            Signer le contrat
+                          </Button>
+                          :
+                          <Button h="3rem" size="md" className={styles.sign} backgroundColor="#38B2AC !important" color="white !important" disabled>
+                            Vous avez signé
+                          </Button>
+                        }
+                          <Button h="3rem" size="md" className={styles.sign} backgroundColor={contract?.status?.id == 31 ? "#38B2AC !important" : "#E53E3E !important"} color="white !important" disabled>
+                            {contract?.status?.id == 31 ? "Signé par l'enfant" : "Non signé par l'enfant"}
+                          </Button>
+                      </div>
+
+                      {contract?.status?.id !== 41 &&
+                        <Button h="3rem" size="md" className={styles.deleteContract} onClick={disableContract}>
+                          Désactiver le contrat
+                        </Button>
+                      }
+                    
                 </>
             )}
         </div>
@@ -77,26 +91,41 @@ function Contract() {
       <div className={styles.contractContainer}>
             {contract && (
                 <>
-                    <Heading as='h3' size='lg'>Contrat de {contract.child?.firstname}</Heading>
-                    <Text fontSize='md' className={styles.contractText}>{contract.content}</Text>
-                    <Text fontSize='md' className={styles.contractPointText}> 1 point
-                        = {contract.dollarPerPoint} €</Text>
-                    <div className={styles.signContainer}>
-                          <Text fontSize='md' className={styles.sign}
-                            backgroundColor={contract.parentSignature ? "#38B2AC !important" : "#E53E3E !important"}>
-                              {contract.parentSignature ? "Signé par le parent" : "Non signé par le parent"}
-                          </Text>
+                <Heading as='h3' size='lg'>Contrat de {contract.child?.firstname}</Heading>
 
-                          {!contract.childSignature ?
-                            <Button h="3rem" size="md" className={styles.sign} onClick={signChild}>
-                              Signer le contrat
-                            </Button>
-                            :
-                            <Text fontSize='md' className={styles.sign}
-                              backgroundColor="#E53E3E !important">
-                                Vous avez signé
-                            </Text>
-                          }
+                  {contract?.status?.id == 41 ?
+                    <Heading as='h3' size='md' className={styles.contractDisabledText}>{contract?.status?.name}</Heading>
+                    :
+                    contract?.status?.id == 21 ?
+                    <Text fontSize='md' className={styles.contractDisabledText}>Ce contrat est en cours de rédaction par votre parent. Attendez qu'il l'ait validé pour le signer.</Text>
+                    :
+                    contract?.status?.id == 1 ?
+                    <Text fontSize='md' className={styles.contractDisabledText}>Ce contrat est en attente de votre signature pour s'activer.</Text>
+                    :
+                    contract?.status?.id == 31 ?
+                    <Text fontSize='md' className={styles.contractDisabledText}>Ce contrat est actif, seul votre parent peut le supprimer.</Text>
+                    :
+                    ''
+                  }
+
+                    <Text fontSize='md' className={styles.contractText}>{contract.content}</Text>
+
+                    <Text fontSize='md' className={styles.contractPointText}>
+                      1 point = {contract.dollarPerPoint} €
+                    </Text>
+                    <div className={styles.signContainer}>
+                        <Button h="3rem" size="md" className={styles.sign} backgroundColor={contract?.status?.id !== 21 ? "#38B2AC !important" : "#E53E3E !important"} color={contract?.status?.id !== 21 ? "white !important" : "#2D3748 !important"} disabled>
+                          {contract?.status?.id !== 1 ? "Signé par votre parent" : "Non signé par votre parent"}
+                        </Button>
+                      {contract?.status?.id == 1 ?
+                        <Button h="3rem" size="md" className={styles.sign} onClick={signChild}>
+                          Signer le contrat
+                        </Button>
+                        :
+                        <Button h="3rem" size="md" className={styles.sign} backgroundColor="#38B2AC !important" color="white !important" disabled>
+                          Vous avez signé
+                        </Button>
+                      }
                     </div>
                 </>
             )}
@@ -106,7 +135,8 @@ function Contract() {
     async function signParent() {
       const response = await patchOnServer(`contracts/${contract.id}`, {
         id: contract.id,
-        parentSignature: true
+        parentSignature: true,
+        status: 1
       })
 
       if (response?.status === 200 || response?.status === 201) {
@@ -130,7 +160,8 @@ function Contract() {
     async function signChild() {
       const response = await patchOnServer(`contracts/${contract.id}`, {
         id: contract.id,
-        childSignature: true
+        childSignature: true,
+        status: 31
       })
 
       if (response?.status === 200 || response?.status === 201) {
@@ -144,6 +175,30 @@ function Contract() {
       } else {
         toast({
           title: `Echec de la signature`,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    }
+
+    async function disableContract() {
+      const response = await patchOnServer(`contracts/${contract.id}`, {
+        id: contract.id,
+        status: 41
+      })
+
+      if (response?.status === 200 || response?.status === 201) {
+        toast({
+          title: `Contrat désactivé`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        router.push('/dashboard');
+      } else {
+        toast({
+          title: `Echec de la désactivation`,
           status: "error",
           duration: 3000,
           isClosable: true,

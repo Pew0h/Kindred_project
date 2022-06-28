@@ -43,11 +43,17 @@ const ChildContractsList = ({ Component, pageProps }) => {
                     childrenContractsList.map((contract) => (
                         <div key={contract.id} className={styles.contractsListBoxContent}>
                             <NextLink href={"/contract/" + contract.id} passHref>
-                                <Link>Contrat numéro {contract.id}</Link>
+                                <Link>
+                                    <div className={styles.contract}>
+                                        <span>Contrat n°{contract.id}</span>
+                                        <span className={styles.status}>
+                                            {contract.status.name}
+                                        </span>
+                                    </div>
+                                </Link>
                             </NextLink>
                         </div>
-                        )
-                    )
+                    ))
                     :
                     <div className={styles.contractsListBoxContent}>
                         <div>
