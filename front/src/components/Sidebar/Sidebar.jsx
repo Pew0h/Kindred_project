@@ -27,6 +27,8 @@ import { BiMedal } from "react-icons/bi";
 import theme from "../../theme/theme";
 import { userContext } from "../../../pages/_app";
 import styles from "./sidebar.module.scss";
+import logo from "../../assets/logo.png"
+import Image from "next/image";
 
 export default function SidebarWithHeader({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -107,9 +109,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+        <Image src={logo} alt='Kindred Logo' />
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {role === "ROLE_PARENT"

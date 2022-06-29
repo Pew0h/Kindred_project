@@ -71,7 +71,7 @@ const Dashboard = ({ Component, pageProps }) => {
                 <Heading as='h3' size='lg'>Bonjour {firstname}</Heading>
                 <div className={styles.topContainer}>
                     <Text fontSize='md'>{childrensList.length} ENFANTS</Text>
-                    <Text fontSize='md'>{missionsInProgress.length} MISSION</Text>
+                    <Text fontSize='md'>{missionsInProgress.length} MISSIONS</Text>
                 </div>
                 <div className={styles.childrenContainer}>
                     <Heading as='h5' size='sm'>

@@ -97,7 +97,7 @@ export default function Login() {
             </NextLink>
           </div>
           <Button onClick={login} className={styles.buttonLogin}>
-            Envoyer
+            Se connecter
           </Button>
           <NextLink href="/signUp" passHref>
             <Link>
